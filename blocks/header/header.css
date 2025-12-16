@@ -230,7 +230,8 @@ header nav .nav-sections ul > li > ul > li a:hover {
     content: '';
     display: inline-block;
     position: absolute;
-    top: 0.5em;
+    top: 50%;
+    margin-top: -3px;
     right: 2px;
     transform: rotate(135deg);
     width: 6px;
@@ -241,8 +242,8 @@ header nav .nav-sections ul > li > ul > li a:hover {
   }
 
   header nav .nav-sections .nav-drop[aria-expanded='true']::after {
-    top: unset;
-    bottom: 0.5em;
+    top: 50%;
+    margin-top: -1px;
     transform: rotate(315deg);
   }
 
@@ -300,4 +301,19 @@ header nav .nav-sections ul > li > ul > li a:hover {
 /* tools */
 header nav .nav-tools {
   grid-area: tools;
+}
+
+header nav .nav-tools a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid white;
+  border-radius: 4px;
+  font-size: var(--body-font-size-s);
+}
+
+header nav .nav-tools a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  text-decoration: none;
 }
