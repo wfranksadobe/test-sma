@@ -194,7 +194,8 @@ export default async function decorate(block) {
 
             const popularWrapper = document.createElement('li');
             popularWrapper.classList.add('nav-popular-section');
-            const popularHeading = document.createTextNode('Popular');
+            const popularHeading = document.createElement('p');
+            popularHeading.textContent = 'Popular';
             const popularUL = document.createElement('ul');
 
             // Move items before separator to subnav
