@@ -331,11 +331,9 @@ header nav .nav-sections ul > li > ul {
   header nav .nav-sections .nav-popular-section > *:first-child {
     display: block;
     font-weight: 700;
-    margin-bottom: 16px;
+    margin: 0 0 16px 0;
     color: #000;
     font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
   }
 
   header nav .nav-sections .nav-popular-section ul {
