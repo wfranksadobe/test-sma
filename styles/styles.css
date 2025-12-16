@@ -89,17 +89,6 @@ header {
   height: calc(var(--nav-height) + 20px);
 }
 
-header::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 20px;
-  background-color: #F5A623;
-  z-index: 3;
-}
-
 main {
   margin-top: 12px;
 }

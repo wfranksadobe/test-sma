@@ -1,10 +1,21 @@
 /* header and nav layout */
 header .nav-wrapper {
-  background-color: rgb(25, 64, 54);
-  width: 100%;
-  z-index: 2;
   position: fixed;
-  top: 20px;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+}
+
+header .nav-wrapper::before {
+  content: '';
+  display: block;
+  height: 20px;
+  background-color: #F5A623;
+  width: 100%;
+}
+
+header .nav-wrapper > nav {
+  background-color: rgb(25, 64, 54);
 }
 
 header nav {
