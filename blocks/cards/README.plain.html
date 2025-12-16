@@ -1,0 +1,197 @@
+<div><h1 id="cards-block---configuration-guide">Cards Block - Configuration Guide</h1><h2 id="overview">Overview</h2><p>The Cards block displays content in a responsive grid layout. You can control the number of columns, rows, and container width.</p></div>
+<div><h2 id="controlling-number-of-columns">1. Controlling Number of Columns</h2><p>Use <strong>block variants</strong> in your markdown to specify column count. The variant name goes in parentheses after the block name.</p><h3 id="default-4-columns-on-desktop">Default (4 columns on desktop)</h3><pre><code class="language-markdown">| Cards |  |
+| --- | --- |
+| ![Image](./image.jpg) | **Title**&#x3C;br>&#x3C;br>Description&#x3C;br>&#x3C;br>[Link](/path) |
+| ![Image](./image.jpg) | **Title**&#x3C;br>&#x3C;br>Description&#x3C;br>&#x3C;br>[Link](/path) |
+</code></pre><h3 id="column-layout">2-Column Layout</h3><pre><code class="language-markdown">| Cards (2-columns) |  |
+| --- | --- |
+| ![Image](./image.jpg) | **Title**&#x3C;br>&#x3C;br>Description&#x3C;br>&#x3C;br>[Link](/path) |
+| ![Image](./image.jpg) | **Title**&#x3C;br>&#x3C;br>Description&#x3C;br>&#x3C;br>[Link](/path) |
+</code></pre><h3 id="column-layout-to-add-this-variant">3-Column Layout (to add this variant)</h3><pre><code class="language-markdown">| Cards (3-columns) |  |
+| --- | --- |
+| ![Image](./image.jpg) | **Title**&#x3C;br>&#x3C;br>Description&#x3C;br>&#x3C;br>[Link](/path) |
+</code></pre><p>To add a 3-column variant, add this to <code>cards.css</code>:</p><pre><code class="language-css">/* 3-columns variant */
+.cards.3-columns > ul {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+@media (width >= 768px) {
+  .cards.3-columns > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (width >= 1024px) {
+  .cards.3-columns > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+</code></pre></div>
+<div><h2 id="controlling-number-of-rows">2. Controlling Number of Rows</h2><p>The number of rows is determined by <strong>how many card items you add</strong> to the markdown table. Each table row becomes one card.</p><h3 id="example-2-columns--4-cards--2-rows">Example: 2 columns × 4 cards = 2 rows</h3><pre><code class="language-markdown">| Cards (2-columns) |  |
+| --- | --- |
+| ![Card 1](./image1.jpg) | **Title 1**&#x3C;br>&#x3C;br>Content 1&#x3C;br>&#x3C;br>[Link](/path) |
+| ![Card 2](./image2.jpg) | **Title 2**&#x3C;br>&#x3C;br>Content 2&#x3C;br>&#x3C;br>[Link](/path) |
+| ![Card 3](./image3.jpg) | **Title 3**&#x3C;br>&#x3C;br>Content 3&#x3C;br>&#x3C;br>[Link](/path) |
+| ![Card 4](./image4.jpg) | **Title 4**&#x3C;br>&#x3C;br>Content 4&#x3C;br>&#x3C;br>[Link](/path) |
+</code></pre><p>This displays as:</p><ul>
+<li><strong>Row 1:</strong> Card 1, Card 2</li>
+<li><strong>Row 2:</strong> Card 3, Card 4</li>
+</ul><h3 id="example-2-columns--6-cards--3-rows">Example: 2 columns × 6 cards = 3 rows</h3><p>Just add more table rows! Each <code>| image | content |</code> line creates one card.</p></div>
+<div><h2 id="controlling-container-width-50-width">3. Controlling Container Width (50% width)</h2><h3 id="option-a-side-by-side-layout-recommended">Option A: Side-by-Side Layout (Recommended)</h3><p>To make two Cards blocks sit side-by-side (each taking 50% width on desktop):</p><ol>
+<li><strong>Remove the <code>---</code> separator</strong> between the two Cards blocks</li>
+<li><strong>Add section metadata</strong> at the end with <code>Style: two-column-layout</code></li>
+</ol><pre><code class="language-markdown">---
+
+| Cards (2-columns) |  |
+| --- | --- |
+| ![Featured 1](./image.jpg) | **Featured Item 1**&#x3C;br>&#x3C;br>Description&#x3C;br>&#x3C;br>[Link](/path) |
+| ![Featured 2](./image.jpg) | **Featured Item 2**&#x3C;br>&#x3C;br>Description&#x3C;br>&#x3C;br>[Link](/path) |
+
+[More](/more-link/)
+
+| Cards (2-columns) |  |
+| --- | --- |
+| ![Media 1](./image.jpg) | **Media Release 1**&#x3C;br>&#x3C;br>Description&#x3C;br>&#x3C;br>[Link](/path) |
+| ![Media 2](./image.jpg) | **Media Release 2**&#x3C;br>&#x3C;br>Description&#x3C;br>&#x3C;br>[Link](/path) |
+
+[More](/media-link/)
+
+---
+| Section Metadata |  |
+| --- | --- |
+| Style | two-column-layout |
+---
+</code></pre><p><strong>Key Points:</strong></p><ul>
+<li>No <code>---</code> between the two Cards blocks = they're in the same section</li>
+<li>Section metadata with <code>Style: two-column-layout</code> = side-by-side layout</li>
+<li>On mobile, blocks stack vertically</li>
+<li>On desktop (≥900px), blocks appear side-by-side at 50% width each</li>
+</ul><h3 id="option-b-full-width-layout-default">Option B: Full-Width Layout (Default)</h3><p>To keep Cards blocks full-width (stacked vertically):</p><pre><code class="language-markdown">---
+
+| Cards (2-columns) |  |
+| --- | --- |
+| ![Card](./image.jpg) | Content |
+
+---
+
+| Cards (2-columns) |  |
+| --- | --- |
+| ![Card](./image.jpg) | Content |
+
+---
+</code></pre><p>Each Cards block is in its own section (<code>---</code> separators) = full width, stacked vertically.</p></div>
+<div><h2 id="complete-example-doc-website-layout">4. Complete Example: DOC Website Layout</h2><p>Here's how to recreate the DOC website's Featured/Media layout (50% width each):</p><pre><code class="language-markdown">---
+
+| Cards (2-columns) |  |
+| --- | --- |
+| ![New marine protections](./images/marine.jpg) | **Featured**&#x3C;br>&#x3C;br>**New marine protections in the Hauraki Gulf/Tīkapa Moana**&#x3C;br>&#x3C;br>Conservation action is supporting and restoring the waters, sea life and ecosystem of the Hauraki Gulf/Tīkapa Moana.&#x3C;br>&#x3C;br>[Learn more](/our-work/revitalising-the-gulf/new-marine-protections-in-the-hauraki-gulf/) |
+| ![Volunteer for conservation](./images/volunteer.jpg) | **Volunteer for conservation**&#x3C;br>&#x3C;br>Get involved in volunteer activities around the country.&#x3C;br>&#x3C;br>[Learn more](/get-involved/volunteer/) |
+| ![Donate to nature](./images/donate.jpg) | **Donate to nature**&#x3C;br>&#x3C;br>New Zealand's special wildlife and ecosystems are facing serious threats, and more action is needed to save it.&#x3C;br>&#x3C;br>[Learn more](/get-involved/donate-to-nature/) |
+| ![Do your bit for nature](./images/bit.jpg) | **Do your bit for nature**&#x3C;br>&#x3C;br>Discover small ways you can make a big difference for nature.&#x3C;br>&#x3C;br>[Learn more](/always-be-naturing/do-your-bit-for-nature/) |
+
+[More](/footer-links/new-on-the-site/)
+
+| Cards (2-columns) |  |
+| --- | --- |
+| ![Aoraki swing bridge](./images/aoraki.jpg) | **Media releases**&#x3C;br>&#x3C;br>**DOC reveals first pictures of massive new Aoraki/Mount Cook swing bridge**&#x3C;br>&#x3C;br>Touted as the longest in New Zealand, the new swing bridge being built in Aoraki/Mount Cook National Park has been giving everyone a bit of a headache.&#x3C;br>&#x3C;br>[Read more](/news/media-releases/2025-media-releases/doc-reveals-first-pictures-of-massive-new-aorakimount-cook-swing-bridge/) |
+| ![Fur seals study](./images/seals.jpg) | **Study to reveal the secret lives of fur seals at sea**&#x3C;br>&#x3C;br>Researchers were in Kaikōura last week to learn more about the behaviour of kekeno/New Zealand fur seals at sea.&#x3C;br>&#x3C;br>[Read more](/news/media-releases/2025-media-releases/study-to-reveal-the-secret-lives-of-fur-seals-at-sea/) |
+| ![Marine reserve decisions](./images/marine-reserve.jpg) | **DOC welcomes resolution of judicial review of marine reserve decisions**&#x3C;br>&#x3C;br>DOC welcomes the resolution of the judicial review of decisions for six new marine reserves on the southeast South Island, confirmed by the High Court on Friday.&#x3C;br>&#x3C;br>[Read more](/news/media-releases/2025-media-releases/doc-welcomes-resolution-of-judicial-review-of-marine-reserve-decisions/) |
+| ![Whites Bay reopening](./images/whites-bay.png) | **Pukatea/Whites Bay reopening for Christmas**&#x3C;br>&#x3C;br>The popular Pukatea/Whites Bay site will reopen to the public at midday on December 22 – just in time for Christmas – after extensive storm damage repairs.&#x3C;br>&#x3C;br>[Read more](/news/media-releases/2025-media-releases/pukateawhites-bay-reopening-for-christmas/) |
+
+[More](/news/media-releases/2025-media-releases/)
+
+---
+| Section Metadata |  |
+| --- | --- |
+| Style | two-column-layout |
+---
+</code></pre></div>
+<div><h2 id="card-content-structure">5. Card Content Structure</h2><p>Each card row has three columns:</p><ol>
+<li><strong>Column 1:</strong> Image (use <code>![Alt text](./path/to/image.jpg)</code>)</li>
+<li><strong>Column 2:</strong> Content (use <code>&#x3C;br>&#x3C;br></code> for line breaks)</li>
+<li><strong>Column 3:</strong> Card link (the entire card becomes clickable)</li>
+</ol><h3 id="content-format">Content Format:</h3><pre><code class="language-markdown">| ![Alt](./image.jpg) | **Category Label**&#x3C;br>&#x3C;br>**Main Heading**&#x3C;br>&#x3C;br>Body text description. | [/path/to/page/](/path/to/page/) |
+</code></pre><p><strong>Important:</strong> The third column makes the entire card clickable. Do NOT include "Learn more" or "Read more" links in the content (column 2) - just put the URL in column 3.</p><h3 id="example">Example:</h3><pre><code class="language-markdown">| ![Marine life](./marine.jpg) | **Featured**&#x3C;br>&#x3C;br>**Protecting Marine Life**&#x3C;br>&#x3C;br>New initiatives to protect our oceans and marine ecosystems. | [/marine-protection/](/marine-protection/) |
+</code></pre><p>This renders as:</p><ul>
+<li><strong>FEATURED</strong> (uppercase label)</li>
+<li><strong>Protecting Marine Life</strong> (heading)</li>
+<li>Body text</li>
+<li>The entire card is clickable and links to <code>/marine-protection/</code></li>
+</ul></div>
+<div><h2 id="summary-of-available-variants">6. Summary of Available Variants</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="variant"><div><div>Default</div><div>1 column</div><div>auto-fill (responsive)</div><div>4 columns</div></div><div><div><code>(2-columns)</code></div><div>1 column</div><div>2 columns</div><div>2 columns</div></div><div><div><code>(3-columns)*</code></div><div>1 column</div><div>3 columns</div><div>3 columns</div></div></div><p>*Need to add CSS for 3-columns variant (see section 1)</p></div>
+<div><h2 id="styling-customization">7. Styling Customization</h2><h3 id="card-appearance">Card Appearance</h3><ul>
+<li><strong>Box shadow:</strong> Defined in <code>cards.css</code> lines 13-14</li>
+<li><strong>Hover effect:</strong> Defined in <code>cards.css</code> lines 18-20</li>
+<li><strong>Image aspect ratio:</strong> <code>16:9</code> (line 69)</li>
+<li><strong>Gap between cards:</strong> <code>24px</code> (line 7)</li>
+</ul><h3 id="typography">Typography</h3><ul>
+<li><strong>Category labels:</strong> Uppercase, smaller font, dark gray</li>
+<li><strong>Card headings:</strong> Uses <code>--heading-font-size-s</code> from global styles</li>
+<li><strong>Body text:</strong> Standard body font size</li>
+<li><strong>Links:</strong> Blue color with underline on hover</li>
+</ul></div>
+<div><h2 id="file-references">8. File References</h2><ul>
+<li><strong>Block CSS:</strong> <code>/workspace/blocks/cards/cards.css</code></li>
+<li><strong>Block JS:</strong> <code>/workspace/blocks/cards/cards.js</code></li>
+<li><strong>Global styles:</strong> <code>/workspace/styles/styles.css</code> (contains <code>.two-column-layout</code>)</li>
+</ul></div>
+<div><h2 id="common-use-cases">9. Common Use Cases</h2><h3 id="use-case-1-four-equal-width-cards">Use Case 1: Four equal-width cards</h3><pre><code class="language-markdown">| Cards |  |
+| --- | --- |
+| card 1... |
+| card 2... |
+| card 3... |
+| card 4... |
+</code></pre><h3 id="use-case-2-two-columns-of-cards-featuredmedia-layout">Use Case 2: Two columns of cards (Featured/Media layout)</h3><pre><code class="language-markdown">| Cards (2-columns) |  |
+| --- | --- |
+| card 1... |
+| card 2... |
+| card 3... |
+| card 4... |
+</code></pre><h3 id="use-case-3-side-by-side-sections-50-width-each">Use Case 3: Side-by-side sections (50% width each)</h3><p>See Section 4 for complete example.</p></div>
+<div><h2 id="troubleshooting">10. Troubleshooting</h2><h3 id="cards-not-displaying-in-grid">Cards not displaying in grid</h3><ul>
+<li>✅ Check that you have <code>| --- | --- |</code> (TWO column separators)</li>
+<li>✅ Check that block name has empty second column: <code>| Cards (2-columns) |  |</code></li>
+<li>✅ Ensure blocks are separated by <code>---</code> section dividers</li>
+</ul><h3 id="side-by-side-layout-not-working">Side-by-side layout not working</h3><ul>
+<li>✅ Remove <code>---</code> between the two Cards blocks</li>
+<li>✅ Add Section Metadata with <code>Style: two-column-layout</code> at the end</li>
+<li>✅ Check viewport width (layout only applies ≥900px)</li>
+</ul><h3 id="images-not-showing">Images not showing</h3><ul>
+<li>✅ Verify image paths are correct (relative to markdown file)</li>
+<li>✅ Check image files exist in the specified location</li>
+<li>✅ Use <code>![Alt text](./images/filename.jpg)</code> format</li>
+</ul></div>
+<div><h2 id="need-help">Need Help?</h2><ul>
+<li>Review the complete example in Section 4</li>
+<li>Check existing cards in <code>/workspace/content/index.md</code></li>
+<li>Refer to AEM Edge Delivery Services documentation for block authoring</li>
+</ul></div>
