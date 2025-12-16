@@ -17,9 +17,6 @@ header .nav-wrapper::before {
 header nav {
   background-color: rgb(25, 64, 54);
   width: 100%;
-}
-
-header nav {
   box-sizing: border-box;
   display: grid;
   grid-template:
@@ -27,13 +24,18 @@ header nav {
     'sections sections sections' 1fr / auto 1fr auto;
   align-items: center;
   gap: 0 24px;
-  margin: auto;
-  max-width: 1248px;
   min-height: var(--nav-height);
   padding: 8px 24px;
   font-family: var(--body-font-family);
   font-size: 14px;
   color: white;
+}
+
+@media (width >= 900px) {
+  header nav {
+    padding-left: max(24px, calc((100% - 1248px) / 2));
+    padding-right: max(24px, calc((100% - 1248px) / 2));
+  }
 }
 
 header nav[aria-expanded='true'] {

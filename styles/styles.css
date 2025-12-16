@@ -90,8 +90,7 @@ header {
 }
 
 main {
-  margin-top: 0;
-  padding-top: calc(var(--nav-height) + 20px);
+  margin-top: calc(var(--nav-height) + 20px);
 }
 
 header .header,
