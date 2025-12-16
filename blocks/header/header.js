@@ -111,7 +111,19 @@ export default async function decorate(block) {
   // load nav as fragment
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/content/nav';
-  const fragment = await loadFragment(navPath);
+
+  // Simple fragment load without decoration to avoid infinite loops
+  const resp = await fetch(`${navPath}.plain.html`);
+  if (!resp.ok) {
+    // eslint-disable-next-line no-console
+    console.error('Failed to load nav:', resp.status);
+    return;
+  }
+
+  const html = await resp.text();
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  const fragment = doc.body;
 
   // decorate nav DOM
   block.textContent = '';
@@ -119,18 +131,10 @@ export default async function decorate(block) {
   nav.id = 'nav';
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
 
-  const classes = ['brand', 'sections', 'tools'];
-  classes.forEach((c, i) => {
-    const section = nav.children[i];
-    if (section) section.classList.add(`nav-${c}`);
-  });
-
-  const navBrand = nav.querySelector('.nav-brand');
-  const brandLink = navBrand.querySelector('.button');
-  if (brandLink) {
-    brandLink.className = '';
-    brandLink.closest('.button-container').className = '';
-  }
+  // Simple structure - just add basic classes if children exist
+  if (nav.children[0]) nav.children[0].classList.add('nav-brand');
+  if (nav.children[1]) nav.children[1].classList.add('nav-sections');
+  if (nav.children[2]) nav.children[2].classList.add('nav-tools');
 
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
@@ -152,12 +156,16 @@ export default async function decorate(block) {
   hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
       <span class="nav-hamburger-icon"></span>
     </button>`;
-  hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
+  if (navSections) {
+    hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
+  }
   nav.prepend(hamburger);
   nav.setAttribute('aria-expanded', 'false');
   // prevent mobile nav behavior on window resize
-  toggleMenu(nav, navSections, isDesktop.matches);
-  isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
+  if (navSections) {
+    toggleMenu(nav, navSections, isDesktop.matches);
+    isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
+  }
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
