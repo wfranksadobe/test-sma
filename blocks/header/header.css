@@ -14,8 +14,9 @@ header .nav-wrapper::before {
   width: 100%;
 }
 
-header .nav-wrapper > nav {
+header nav {
   background-color: rgb(25, 64, 54);
+  width: 100%;
 }
 
 header nav {
@@ -273,7 +274,7 @@ header nav .nav-sections ul > li > ul {
     transform: translateX(-50%);
     width: 960px;
     max-width: calc(100vw - 64px);
-    top: calc(20px + var(--nav-height) + 4px);
+    top: 84px;
     padding: 32px 40px;
     background-color: white;
     white-space: initial;
