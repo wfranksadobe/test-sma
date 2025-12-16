@@ -186,6 +186,7 @@ header nav .nav-sections ul > li {
 
 header nav .nav-sections ul > li > ul {
   margin-top: 0;
+  display: none;
 }
 
 header nav .nav-sections ul > li > ul > li {
@@ -249,17 +250,20 @@ header nav .nav-sections ul > li > ul > li a:hover {
     margin: 0;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li {
+  header nav .nav-sections .default-content-wrapper > ul > li,
+  header nav .nav-sections > ul > li {
     flex: 0 1 auto;
     position: relative;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul {
+  header nav .nav-sections .default-content-wrapper > ul > li > ul,
+  header nav .nav-sections > ul > li > ul {
     display: none;
     position: relative;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
+  header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul,
+  header nav .nav-sections > ul > li[aria-expanded='true'] > ul {
     display: block;
     position: absolute;
     left: -24px;
@@ -272,7 +276,8 @@ header nav .nav-sections ul > li > ul > li a:hover {
     border-radius: 4px;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul::before {
+  header nav .nav-sections .default-content-wrapper > ul > li > ul::before,
+  header nav .nav-sections > ul > li > ul::before {
     content: '';
     position: absolute;
     top: -8px;
@@ -284,7 +289,8 @@ header nav .nav-sections ul > li > ul > li a:hover {
     border-bottom: 8px solid white;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li,
+  header nav .nav-sections > ul > li > ul > li {
     padding: 4px 0;
   }
 }

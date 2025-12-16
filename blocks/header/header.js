@@ -56,7 +56,8 @@ function focusNavSection() {
  * @param {Boolean} expanded Whether the element should be expanded or collapsed
  */
 function toggleAllNavSections(sections, expanded = false) {
-  sections.querySelectorAll('.nav-sections .default-content-wrapper > ul > li').forEach((section) => {
+  const selector = '.nav-sections .default-content-wrapper > ul > li, .nav-sections > ul > li';
+  sections.querySelectorAll(selector).forEach((section) => {
     section.setAttribute('aria-expanded', expanded);
   });
 }
@@ -137,7 +138,9 @@ export default async function decorate(block) {
 
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
-    navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
+    // Look for nav items either in default-content-wrapper or directly in nav-sections
+    const selector = ':scope .default-content-wrapper > ul > li, :scope > ul > li';
+    navSections.querySelectorAll(selector).forEach((navSection) => {
       if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
       navSection.addEventListener('click', () => {
         if (isDesktop.matches) {
