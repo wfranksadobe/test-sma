@@ -1,0 +1,40 @@
+{
+  "variantName": "cards-widget",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2025-12-16T02:04:03.893Z",
+  "sourceContext": {
+    "originUrl": "https://www.doc.govt.nz/",
+    "originPage": "DOC homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "widget",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "stacked cards with images + headings + descriptions",
+    "buttonCount": 0,
+    "imageCount": 4
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "content widgets (blog, featured, media releases)",
+      "stacked card layouts",
+      "homepage content sections",
+      "news and article listings"
+    ],
+    "notSuitableFor": [
+      "grid layouts (use standard cards)",
+      "product catalogs",
+      "team member listings"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/content/index"],
+    "reuseCount": 4,
+    "lastUsed": "2025-12-16T02:04:03.893Z"
+  }
+}

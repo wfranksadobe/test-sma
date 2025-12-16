@@ -1,0 +1,39 @@
+{
+  "variantName": "hero-search",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2025-12-16T02:04:03.893Z",
+  "sourceContext": {
+    "originUrl": "https://www.doc.govt.nz/",
+    "originPage": "DOC homepage",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "homepage-search",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "heading + search widget + quick-link buttons",
+    "buttonCount": 7,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "homepage with search functionality",
+      "landing pages with integrated search",
+      "pages with quick-access navigation"
+    ],
+    "notSuitableFor": [
+      "simple hero without search",
+      "product pages",
+      "article pages"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/content/index"],
+    "reuseCount": 1,
+    "lastUsed": "2025-12-16T02:04:03.893Z"
+  }
+}
