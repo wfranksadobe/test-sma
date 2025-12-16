@@ -279,7 +279,7 @@ header nav .nav-sections ul > li > ul {
   header nav .nav-sections .nav-subnav-section {
     list-style: none;
     flex: 0 0 auto;
-    max-width: 45%;
+    width: 420px;
   }
 
   header nav .nav-sections .nav-subnav-section ul {
@@ -307,6 +307,8 @@ header nav .nav-sections ul > li > ul {
     font-size: 15px;
     font-weight: 400;
     line-height: 1.4;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   header nav .nav-sections .nav-subnav-section ul li a::after {
