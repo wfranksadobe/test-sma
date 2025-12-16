@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta
+  http-equiv="Content-Security-Policy"
+  content="script-src 'nonce-aem' 'strict-dynamic' 'unsafe-inline' http: https:; base-uri 'self'; object-src 'none';"
+  move-to-http-header="true"
+>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<script nonce="aem" src="/scripts/aem.js" type="module"></script>
+<script nonce="aem" src="/scripts/scripts.js" type="module"></script>
+<link rel="stylesheet" href="/styles/styles.css"/>
+</head>
+<body>
+<header></header>
+<main>
+<div><h1 id="doc-website-migration-context---december-16-2025">DOC Website Migration Context - December 16, 2025</h1>
+<h2 id="project-overview">Project Overview</h2>
+<p>Cloning the New Zealand Department of Conservation (DOC) website using AEM Edge Delivery Services with a block-based architecture.</p>
+<h2 id="current-status-critical-issue---headerfooter-not-rendering">Current Status: CRITICAL ISSUE - Header/Footer Not Rendering</h2>
+<h3 id="symptoms">Symptoms</h3>
+<ul>
+<li>Header and footer blocks exist in DOM but are empty with <code>data-block-status="loading"</code></li>
+<li>Console shows thousands of errors: "failed to load module for header TypeError: Cannot read properties of null"</li>
+<li><code>loadFragment()</code> is returning null despite files being accessible</li>
+</ul>
+<h3 id="verified-working">Verified Working</h3>
+<ul>
+<li>Direct fetch of <code>/content/nav.plain.html</code> returns 200 OK with valid content</li>
+<li>Files exist: <code>/workspace/content/nav.md</code>, <code>/workspace/content/nav.plain.html</code></li>
+<li>Files exist: <code>/workspace/content/footer.md</code> (footer.plain.html likely needed)</li>
+<li>SVG logos created: <code>/workspace/content/images/doc-logo.svg</code>, <code>/workspace/content/images/nz-govt-logo.svg</code></li>
+</ul>
+<h2 id="file-structure">File Structure</h2>
+<pre><code>/workspace/
+├── blocks/
+│   ├── header/
+│   │   └── header.js (modified - points to /content/nav)
+│   ├── footer/
+│   │   └── footer.js (modified - points to /content/footer)
+│   ├── fragment/
+│   │   └── fragment.js (contains loadFragment function)
+│   └── [other blocks...]
+├── content/
+│   ├── index.md (homepage with Hero, Feature-Cards, Media releases)
+│   ├── nav.md (header content)
+│   ├── nav.plain.html (manually created)
+│   ├── footer.md (footer content)
+│   └── images/
+│       ├── doc-logo.svg (DOC branding with koru)
+│       └── nz-govt-logo.svg (NZ Govt crown emblem)
+├── styles/
+│   └── styles.css (modified - added .metadata-wrapper hiding)
+└── site-migration/
+    └── [this file]
+</code></pre>
+<h2 id="key-changes-made-this-session">Key Changes Made This Session</h2>
+<h3 id="header-and-footer-path-configuration">1. Header and Footer Path Configuration</h3>
+<p><strong>blocks/header/header.js:113</strong></p>
+<pre><code class="language-javascript">const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/content/nav';
+</code></pre>
+<p><strong>blocks/footer/footer.js:11</strong></p>
+<pre><code class="language-javascript">const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : '/content/footer';
+</code></pre>
+<h3 id="svg-logo-files-created">2. SVG Logo Files Created</h3>
+<p><strong>content/images/doc-logo.svg</strong></p>
+<ul>
+<li>Black background with DOC logo</li>
+<li>Blue/green koru symbol design</li>
+<li>"Department of Conservation" text</li>
+<li>"Te Papa Atawhai" subtitle</li>
+</ul>
+<p><strong>content/images/nz-govt-logo.svg</strong></p>
+<ul>
+<li>Crown emblem</li>
+<li>Bilingual text: "Te Kāwanatanga o Aotearoa / New Zealand Government"</li>
+</ul>
+<h3 id="navigation-content-contentnavmd">3. Navigation Content (content/nav.md)</h3>
+<pre><code class="language-markdown">| Header |
+|---|
+| ![Department of Conservation](./images/doc-logo.svg) |
+| [Parks &#x26; recreation](/parks-and-recreation/) [Nature](/nature/) [Get involved](/get-involved/) [Our work](/our-work/) |
+</code></pre>
+<h3 id="footer-content-contentfootermd">4. Footer Content (content/footer.md)</h3>
+<pre><code class="language-markdown">| Footer |
+|---|
+| [Facebook](https://www.facebook.com/docgovtnz) [Blog](https://blog.doc.govt.nz/) [Instagram](https://www.instagram.com/docgovtnz/) [Youtube](https://www.youtube.com/docgovtnz) [Other channels](/news/social-media/) |
+| ![New Zealand Government](./images/nz-govt-logo.svg) |
+| [Careers](/careers/) [News &#x26; events](/news/) [About us](/about-us/) [Contact](/footer-links/contact-us/) |
+| [Copyright](/footer-links/copyright/) [About this site](/footer-links/about-this-site/) [Privacy &#x26; security](/footer-links/privacy-and-security/) [OIA requests](/footer-links/contact-us/making-an-official-information-act-request/) |
+</code></pre>
+<h3 id="manual-plain-html-creation">5. Manual Plain HTML Creation</h3>
+<p>Created <code>/workspace/content/nav.plain.html</code> manually because AEM server wasn't auto-generating it.</p>
+<h3 id="metadata-hiding-stylesstylescss">6. Metadata Hiding (styles/styles.css)</h3>
+<pre><code class="language-css">/* Hide page metadata block */
+main .metadata-wrapper {
+  display: none;
+}
+</code></pre>
+<h2 id="git-status-uncommitted-changes">Git Status (Uncommitted Changes)</h2>
+<h3 id="modified-files">Modified Files:</h3>
+<ul>
+<li><code>blocks/footer/footer.js</code> - Changed path from <code>/footer</code> to <code>/content/footer</code></li>
+<li><code>blocks/header/header.js</code> - Changed path from <code>/nav</code> to <code>/content/nav</code></li>
+<li><code>styles/styles.css</code> - Added metadata-wrapper hiding rule</li>
+</ul>
+<h3 id="untracked-directories">Untracked Directories:</h3>
+<ul>
+<li><code>content/</code> - All content files including nav, footer, index, images</li>
+<li><code>migration-work/</code> - May contain migration-related files</li>
+</ul>
+<h2 id="how-to-commit-this-work">How to Commit This Work</h2>
+<pre><code class="language-bash"># Add all content files
+git add content/
+
+# Add modified block files
+git add blocks/header/header.js blocks/footer/footer.js
+
+# Add CSS changes
+git add styles/styles.css
+
+# Add migration documentation
+git add site-migration/
+
+# Check migration-work directory before adding
+git add migration-work/
+
+# Commit everything
+git commit -m "Add DOC site header/footer with SVG logos and content structure
+
+- Create navigation and footer content with DOC branding
+- Add DOC logo and NZ Government logo SVGs
+- Update header/footer blocks to load from /content directory
+- Add metadata hiding CSS rule
+- Create site-migration documentation folder"
+
+# Push to remote (if configured)
+git push origin main
+</code></pre>
+<h2 id="critical-debugging-needed">CRITICAL DEBUGGING NEEDED</h2>
+<h3 id="problem-loadfragment-returns-null">Problem: loadFragment() Returns Null</h3>
+<p>The <code>blocks/fragment/fragment.js</code> file contains the <code>loadFragment()</code> function. It's returning null, which means either:</p>
+<ol>
+<li>The fetch is failing (but we verified it returns 200 OK)</li>
+<li><code>decorateMain(main)</code> is throwing an error</li>
+<li><code>await loadSections(main)</code> is throwing an error</li>
+</ol>
+<h3 id="next-debugging-steps">Next Debugging Steps:</h3>
+<ol>
+<li><strong>Add error handling to loadFragment</strong> (blocks/fragment/fragment.js):</li>
+</ol>
+<pre><code class="language-javascript">export async function loadFragment(path) {
+  if (path &#x26;&#x26; path.startsWith('/')) {
+    try {
+      console.log('[DEBUG] Loading fragment:', path);
+      const resp = await fetch(`${path}.plain.html`);
+      console.log('[DEBUG] Fetch response:', resp.status, resp.ok);
+
+      if (resp.ok) {
+        const main = document.createElement('main');
+        const htmlText = await resp.text();
+        console.log('[DEBUG] Fragment HTML length:', htmlText.length);
+        main.innerHTML = htmlText;
+
+        // reset base path for media to fragment base
+        const resetAttributeBase = (tag, attr) => {
+          main.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((elem) => {
+            elem[attr] = new URL(elem.getAttribute(attr), new URL(path, window.location)).href;
+          });
+        };
+        resetAttributeBase('img', 'src');
+        resetAttributeBase('source', 'srcset');
+
+        console.log('[DEBUG] About to decorateMain');
+        decorateMain(main);
+        console.log('[DEBUG] About to loadSections');
+        await loadSections(main);
+        console.log('[DEBUG] Fragment loaded successfully');
+        return main;
+      }
+    } catch (error) {
+      console.error('[ERROR] loadFragment failed:', error);
+      return null;
+    }
+  }
+  return null;
+}
+</code></pre>
+<ol start="2">
+<li>
+<p><strong>Create footer.plain.html</strong> - Footer might need manual plain.html file like nav does</p>
+</li>
+<li>
+<p><strong>Check browser console</strong> after adding debug logging to see where exactly the failure occurs</p>
+</li>
+</ol>
+<h2 id="previous-session-work-completed">Previous Session Work Completed</h2>
+<ul>
+<li>Made card tiles clickable</li>
+<li>Styled "More" buttons</li>
+<li>Created two-column layouts</li>
+<li>Removed visible page metadata from content area</li>
+<li>Created separate header/footer content files</li>
+<li>Set up block structure for homepage (Hero, Feature-Cards, Media releases)</li>
+</ul>
+<h2 id="preview-server">Preview Server</h2>
+<p>Local preview runs at <code>http://localhost:3000</code></p>
+<ul>
+<li>Homepage: <code>http://localhost:3000/content/index.html</code></li>
+<li>Uses live reload for CSS/JS changes</li>
+</ul>
+<h2 id="testing-workflow">Testing Workflow</h2>
+<ol>
+<li>Make changes to files</li>
+<li>Navigate to <code>http://localhost:3000/content/index.html</code> in browser</li>
+<li>Check console for errors</li>
+<li>Use browser DevTools to inspect DOM structure</li>
+<li>Check Network tab for failed resource loads</li>
+</ol>
+<h2 id="important-notes">Important Notes</h2>
+<ul>
+<li>Server may not auto-generate <code>.plain.html</code> files - may need manual creation</li>
+<li>Browser caching can cause issues - hard refresh (Ctrl+Shift+R) often needed</li>
+<li>Fragment paths are relative to site root, not content directory</li>
+<li>Metadata blocks should be hidden with CSS, not removed from markdown</li>
+</ul>
+<h2 id="session-recovery-checklist">Session Recovery Checklist</h2>
+<p>When starting a new session:</p>
+<ol>
+<li>✅ Read this file first: <code>/workspace/site-migration/migration-context-2025-12-16.md</code></li>
+<li>✅ Check git status: <code>git status</code></li>
+<li>✅ Review modified files: <code>git diff</code></li>
+<li>✅ Start preview server if not running: <code>npm run up</code> or equivalent</li>
+<li>✅ Navigate to <code>http://localhost:3000/content/index.html</code> to see current state</li>
+<li>✅ Check browser console for errors</li>
+<li>✅ Priority: Debug why <code>loadFragment()</code> returns null for header/footer</li>
+<li>✅ Create <code>/workspace/content/footer.plain.html</code> manually if needed</li>
+</ol>
+<h2 id="contact-information">Contact Information</h2>
+<ul>
+<li>Original site: Department of Conservation New Zealand</li>
+<li>Migration approach: Block-based AEM Edge Delivery Services</li>
+<li>Content authoring: Document-based (Markdown)</li>
+</ul></div>
+</main>
+<footer></footer>
+</body>
+</html>

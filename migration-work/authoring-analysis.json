@@ -1,0 +1,126 @@
+{
+  "url": "https://www.doc.govt.nz/",
+  "timestamp": "2025-12-16T02:04:03.893Z",
+  "sections": [
+    {
+      "sectionNumber": 1,
+      "background": "light",
+      "description": "Hero section with large background image",
+      "sequences": [
+        {
+          "sequenceNumber": 1,
+          "description": "Large background image with overlaid heading 'Haere mai', search box with multiple quick-link buttons",
+          "authoringDecision": "block",
+          "blockName": "hero-search",
+          "blockStructure": {
+            "rows": 1,
+            "structure": "1 column with image, heading, paragraph(s)",
+            "note": "Hero block - single row with all content"
+          },
+          "reasoning": "Complex hero component with background image overlay, heading, search functionality, and structured button layout. Requires hero block structure.",
+          "defaultContentCheck": "NO - requires hero structure with background image and interactive elements"
+        }
+      ]
+    },
+    {
+      "sectionNumber": 2,
+      "background": "light",
+      "description": "Featured content in multi-column widget layout",
+      "sequences": [
+        {
+          "sequenceNumber": 1,
+          "description": "Promotional card with image, heading 'Always Be Naturing' in colored bar (maui-600 blue), descriptive paragraph",
+          "authoringDecision": "block",
+          "blockName": "cards-widget",
+          "blockStructure": {
+            "rows": 1,
+            "structure": "2 columns [image | heading, paragraph]",
+            "note": "Single card in Cards block"
+          },
+          "reasoning": "Structured card with specific styling. Uses Cards block (1 card). Colored heading bar is styling concern handled by variant or CSS.",
+          "defaultContentCheck": "NO - structured card layout requires block"
+        },
+        {
+          "sequenceNumber": 2,
+          "description": "Blog widget with colored heading bar, single blog post card containing date, heading, thumbnail image on left, excerpt text, 'More' link button at bottom",
+          "authoringDecision": "block",
+          "blockName": "cards-widget",
+          "blockStructure": {
+            "rows": 1,
+            "structure": "2 columns [image | heading, paragraph, link]",
+            "note": "Single blog card with metadata (date) and CTA"
+          },
+          "reasoning": "Structured card layout with blog post content. Uses Cards block (1 card).",
+          "defaultContentCheck": "NO - structured card with widget formatting"
+        },
+        {
+          "sequenceNumber": 3,
+          "description": "Featured widget with colored heading bar, four stacked cards (each with full-width image, heading, short description paragraph), 'More' link button at bottom",
+          "authoringDecision": "block",
+          "blockName": "cards-widget",
+          "blockStructure": {
+            "rows": 4,
+            "structure": "Each row: 2 columns [image | heading, paragraph]",
+            "note": "4 cards in vertical stack, widget heading above block, CTA button after block"
+          },
+          "reasoning": "Repeating structured pattern of 4 feature cards. Obvious match with Cards block.",
+          "defaultContentCheck": "NO - repeating structured pattern requires block"
+        },
+        {
+          "sequenceNumber": 4,
+          "description": "Media releases widget with colored heading bar, four stacked cards (each with full-width image, heading, short description paragraph), 'More' link button at bottom",
+          "authoringDecision": "block",
+          "blockName": "cards-widget",
+          "blockStructure": {
+            "rows": 4,
+            "structure": "Each row: 2 columns [image | heading, paragraph]",
+            "note": "4 cards in vertical stack, widget heading above block, CTA button after block"
+          },
+          "reasoning": "Repeating structured pattern of 4 media release cards. Obvious match with Cards block.",
+          "defaultContentCheck": "NO - repeating structured pattern requires block"
+        }
+      ]
+    }
+  ],
+  "blockStructures": {
+    "hero": {
+      "source": "Adobe AEM Block Collection",
+      "liveExampleUrl": "https://main--aem-block-collection--adobe.aem.live/block-collection/hero",
+      "structure": "1 row with 1 column containing image, heading, and paragraph(s)",
+      "variants": [
+        {
+          "name": "Hero (block)",
+          "structure": "Block has 1 row(s) - Row 1: 1 column(s) [image, heading, paragraph(s)]"
+        }
+      ]
+    },
+    "cards": {
+      "source": "Adobe AEM Block Collection",
+      "liveExampleUrl": "https://main--aem-block-collection--adobe.aem.live/block-collection/cards",
+      "description": "List of cards with or without images and links",
+      "structure": "Each card = 1 row with 2 columns [image | heading, paragraph(s)] OR 1 column [heading, paragraph(s)] for no-image variant",
+      "variants": [
+        {
+          "name": "Cards",
+          "structure": "Each row: 2 columns [image | heading, paragraph(s)]"
+        },
+        {
+          "name": "Cards (no images)",
+          "structure": "Each row: 1 column [heading, paragraph(s)]"
+        }
+      ]
+    }
+  },
+  "sectionStylingValidation": {
+    "trigger": "Section 1 has exactly 1 sequence that became a block (hero)",
+    "section1": {
+      "sectionNumber": 1,
+      "blockType": "hero",
+      "backgroundAnalysis": "Large background photo image with overlay",
+      "layoutAnalysis": "Full-width hero, edge-to-edge, no visible section padding",
+      "decision": "SKIP section-metadata",
+      "reasoning": "Background image is part of hero's design (hero's own background), not section container styling. Hero blocks typically have their own backgrounds."
+    },
+    "otherSections": "Section 2 has 4 sequences, so section-metadata is retained (styling applies to container holding multiple content blocks)"
+  }
+}

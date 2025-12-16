@@ -257,6 +257,11 @@ main .section.highlight {
   padding: 40px 0;
 }
 
+/* Hide page metadata block */
+main .metadata-wrapper {
+  display: none;
+}
+
 /* Two-column section layout - for side-by-side sections */
 main .section.two-column-layout {
   margin: 40px 0;

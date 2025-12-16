@@ -1,0 +1,90 @@
+{
+  "url": "https://www.doc.govt.nz/",
+  "timestamp": "2025-12-16T02:04:03.893Z",
+  "sections": [
+    {
+      "sectionNumber": 1,
+      "background": "light",
+      "description": "Hero section with large background image",
+      "sequences": [
+        {
+          "sequenceNumber": 1,
+          "description": "Large background image with overlaid heading 'Haere mai', search box with multiple quick-link buttons (Places to go, Things to do, Places to stay, Know before you go, Bookings, Alerts, My saved list)"
+        }
+      ]
+    },
+    {
+      "sectionNumber": 2,
+      "background": "light",
+      "description": "Featured content in multi-column widget layout",
+      "sequences": [
+        {
+          "sequenceNumber": 1,
+          "description": "Promotional card with image, heading 'Always Be Naturing' in colored bar (maui-600 blue), descriptive paragraph"
+        },
+        {
+          "sequenceNumber": 2,
+          "description": "Blog widget with colored heading bar, single blog post card containing date, heading, thumbnail image on left, excerpt text, 'More' link button at bottom"
+        },
+        {
+          "sequenceNumber": 3,
+          "description": "Featured widget with colored heading bar, four stacked cards (each with full-width image, heading, short description paragraph), 'More' link button at bottom"
+        },
+        {
+          "sequenceNumber": 4,
+          "description": "Media releases widget with colored heading bar, four stacked cards (each with full-width image, heading, short description paragraph), 'More' link button at bottom"
+        }
+      ]
+    }
+  ],
+  "blockInventory": {
+    "localBlocks": [
+      {
+        "name": "cards",
+        "purpose": "Grid layout of content items with images, headings, and descriptions"
+      },
+      {
+        "name": "columns",
+        "purpose": "Side-by-side content in 2-3 columns"
+      },
+      {
+        "name": "footer",
+        "purpose": "Page footer (handled separately)"
+      },
+      {
+        "name": "fragment",
+        "purpose": "Reusable content section that can be embedded across pages"
+      },
+      {
+        "name": "header",
+        "purpose": "Page header and navigation (handled separately)"
+      },
+      {
+        "name": "hero",
+        "purpose": "Large heading, text, and buttons at top of page"
+      }
+    ],
+    "blockCollectionAvailable": [
+      {
+        "name": "accordion",
+        "purpose": "Expandable sections for FAQs or collapsed content",
+        "liveExampleUrl": "https://main--aem-block-collection--adobe.aem.live/block-collection/accordion"
+      },
+      {
+        "name": "tabs",
+        "purpose": "Tabbed interface for organizing related content",
+        "liveExampleUrl": "https://main--aem-block-collection--adobe.aem.live/block-collection/tabs"
+      },
+      {
+        "name": "carousel",
+        "purpose": "Rotating slideshow of images or content",
+        "liveExampleUrl": "https://main--aem-block-collection--adobe.aem.live/block-collection/carousel"
+      },
+      {
+        "name": "quote",
+        "purpose": "Highlighted testimonial or pullquote with attribution",
+        "liveExampleUrl": "https://main--aem-block-collection--adobe.aem.live/block-collection/quote"
+      }
+    ]
+  }
+}
