@@ -20,6 +20,7 @@ header nav {
   min-height: var(--nav-height);
   padding: 8px 24px;
   font-family: var(--body-font-family);
+  font-size: 14px;
   color: white;
 }
 
@@ -195,20 +196,6 @@ header nav .nav-sections ul > li > ul > li {
   font-weight: 400;
 }
 
-header nav .nav-sections ul > li > ul > li a {
-  display: block;
-  padding: 8px 12px;
-  border-radius: 4px;
-  background-color: #2C5234;
-  color: white;
-  transition: background-color 0.2s;
-}
-
-header nav .nav-sections ul > li > ul > li a:hover {
-  background-color: #1a3320;
-  text-decoration: none;
-}
-
 @media (width >= 900px) {
   header nav .nav-sections {
     display: block;
@@ -295,6 +282,74 @@ header nav .nav-sections ul > li > ul > li a:hover {
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li,
   header nav .nav-sections > ul > li > ul > li {
     padding: 4px 0;
+  }
+
+  /* Subnav section - colored button links */
+  header nav .nav-sections .nav-subnav-section {
+    list-style: none;
+  }
+
+  header nav .nav-sections .nav-subnav-section ul {
+    display: block;
+    padding: 0;
+    margin: 0;
+  }
+
+  header nav .nav-sections .nav-subnav-section ul li a {
+    display: block;
+    padding: 12px 16px;
+    border-radius: 4px;
+    background-color: var(--subnav-color, #2C5234);
+    color: white;
+    transition: background-color 0.2s;
+    text-decoration: none;
+  }
+
+  header nav .nav-sections .nav-subnav-section ul li a:hover {
+    background-color: color-mix(in srgb, var(--subnav-color, #2C5234) 80%, black);
+    text-decoration: none;
+  }
+
+  /* Popular section - white bordered links */
+  header nav .nav-sections .nav-popular-section {
+    list-style: none;
+    margin-top: 16px;
+  }
+
+  header nav .nav-sections .nav-popular-section > *:first-child {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+  }
+
+  header nav .nav-sections .nav-popular-section ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0;
+    margin: 0;
+  }
+
+  header nav .nav-sections .nav-popular-section ul li {
+    flex: 0 0 auto;
+  }
+
+  header nav .nav-sections .nav-popular-section ul li a {
+    display: block;
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    color: #333;
+    transition: border-color 0.2s, background-color 0.2s;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  header nav .nav-sections .nav-popular-section ul li a:hover {
+    border-color: #999;
+    background-color: #f5f5f5;
+    text-decoration: none;
   }
 }
 

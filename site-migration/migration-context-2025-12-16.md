@@ -3,18 +3,144 @@
 ## Project Overview
 Cloning the New Zealand Department of Conservation (DOC) website using AEM Edge Delivery Services with a block-based architecture.
 
-## Current Status: CRITICAL ISSUE - Header/Footer Not Rendering
+## Current Status: Navigation System Complete ✅
 
-### Symptoms
-- Header and footer blocks exist in DOM but are empty with `data-block-status="loading"`
-- Console shows thousands of errors: "failed to load module for header TypeError: Cannot read properties of null"
-- `loadFragment()` is returning null despite files being accessible
+### Latest Session Completed (Evening)
+Successfully implemented dynamic, content-managed navigation with color theming.
 
-### Verified Working
-- Direct fetch of `/content/nav.plain.html` returns 200 OK with valid content
-- Files exist: `/workspace/content/nav.md`, `/workspace/content/nav.plain.html`
-- Files exist: `/workspace/content/footer.md` (footer.plain.html likely needed)
-- SVG logos created: `/workspace/content/images/doc-logo.svg`, `/workspace/content/images/nz-govt-logo.svg`
+## Navigation System Architecture
+
+### Key Components
+
+1. **Custom HTML File**: `/workspace/nav-custom.html` (also copied to `/workspace/content/nav-custom.html`)
+   - Static HTML file with color specifications and HR separators
+   - Used instead of dynamically-generated `.plain.html` to work around AEM server transformation issues
+
+2. **Header JavaScript**: `/workspace/blocks/header/header.js`
+   - Fetches `nav-custom.html` (with fallback to `nav.plain.html`)
+   - Extracts RGB color values from section titles
+   - Strips color specifications from displayed text
+   - Restructures flat list into subnav/popular sections based on `<hr>` separators
+
+3. **Header CSS**: `/workspace/blocks/header/header.css`
+   - Uses CSS custom properties (`--subnav-color`) for dynamic theming
+   - Styled subnav links as colored buttons
+   - Styled popular links as white bordered buttons
+   - Added 14px font size to match original site
+
+### Navigation Structure
+
+Each dropdown has two sections:
+- **Subnav Section**: Main navigation links styled as colored buttons
+- **Popular Section**: Secondary links styled as white bordered buttons
+
+### Color Scheme (Content-Managed)
+
+Colors specified in `nav-custom.html` format: `Section Name (rgb(r, g, b))`
+
+- **Parks & recreation**: Blue - rgb(21, 121, 183)
+- **Nature**: Green - rgb(80, 127, 57)
+- **Get involved**: Purple - rgb(76, 54, 87)
+- **Our work**: Brown - rgb(128, 51, 26)
+
+### Technical Implementation Details
+
+#### Problem: AEM Server Flattening HTML
+The AEM dev server dynamically generates `.plain.html` from `.md` files and transforms/flattens nested structures:
+- Removes HR elements from nested lists
+- Strips color specifications from text
+- Flattens 3-level list nesting to 2 levels
+
+#### Solution: Custom HTML Bypass
+1. Created static `nav-custom.html` with exact structure needed
+2. Modified header.js to fetch custom file first, fallback to plain.html
+3. Used `<li><hr></li>` as separator between subnav and popular links
+4. JavaScript detects HR and restructures DOM client-side
+
+#### Color Extraction Logic (header.js:147-175)
+```javascript
+// The title might be in a <p> tag or as a direct text node
+let titleElement = navSection.querySelector('p');
+if (titleElement) {
+  const text = titleElement.textContent.trim();
+  const colorMatch = text.match(/\(rgb\([\d,\s]+\)\)/);
+  if (colorMatch) {
+    const color = colorMatch[0].slice(1, -1); // Remove outer parentheses
+    navSection.style.setProperty('--subnav-color', color);
+    titleElement.textContent = text.replace(/\s*\(rgb\([\d,\s]+\)\)/, '');
+  }
+} else {
+  // Check for direct text node (our case)
+  for (const node of navSection.childNodes) {
+    if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+      const text = node.textContent.trim();
+      const colorMatch = text.match(/\(rgb\([\d,\s]+\)\)/);
+      if (colorMatch) {
+        const color = colorMatch[0].slice(1, -1);
+        navSection.style.setProperty('--subnav-color', color);
+        node.textContent = text.replace(/\s*\(rgb\([\d,\s]+\)\)/, '');
+      }
+      break;
+    }
+  }
+}
+```
+
+#### List Restructuring Logic (header.js:177-224)
+```javascript
+const items = Array.from(subUL.children);
+const separatorIndex = items.findIndex(item => item.querySelector('hr'));
+
+if (separatorIndex > 0) {
+  // Create two wrapper list items for subnav and popular
+  const subnavWrapper = document.createElement('li');
+  subnavWrapper.classList.add('nav-subnav-section');
+  const subnavUL = document.createElement('ul');
+
+  const popularWrapper = document.createElement('li');
+  popularWrapper.classList.add('nav-popular-section');
+  const popularHeading = document.createTextNode('Popular');
+  const popularUL = document.createElement('ul');
+
+  // Move items before separator to subnav, after to popular
+  // Remove separator, rebuild structure
+}
+```
+
+### CSS Styling Details (header.css:300-366)
+
+**Subnav Section (Colored Buttons)**:
+```css
+header nav .nav-sections .nav-subnav-section ul li a {
+  display: block;
+  padding: 12px 16px;
+  border-radius: 4px;
+  background-color: var(--subnav-color, #2C5234);
+  color: white;
+  transition: background-color 0.2s;
+  text-decoration: none;
+}
+
+header nav .nav-sections .nav-subnav-section ul li a:hover {
+  background-color: color-mix(in srgb, var(--subnav-color, #2C5234) 80%, black);
+  text-decoration: none;
+}
+```
+
+**Popular Section (White Bordered Buttons)**:
+```css
+header nav .nav-sections .nav-popular-section ul li a {
+  display: block;
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  color: #333;
+  transition: border-color 0.2s, background-color 0.2s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+```
 
 ## File Structure
 
@@ -22,223 +148,154 @@ Cloning the New Zealand Department of Conservation (DOC) website using AEM Edge 
 /workspace/
 ├── blocks/
 │   ├── header/
-│   │   └── header.js (modified - points to /content/nav)
+│   │   ├── header.js (✅ Complete - color extraction, list restructuring)
+│   │   └── header.css (✅ Complete - subnav/popular styling, 14px font)
 │   ├── footer/
-│   │   └── footer.js (modified - points to /content/footer)
-│   ├── fragment/
-│   │   └── fragment.js (contains loadFragment function)
+│   │   └── footer.js
 │   └── [other blocks...]
 ├── content/
-│   ├── index.md (homepage with Hero, Feature-Cards, Media releases)
-│   ├── nav.md (header content)
-│   ├── nav.plain.html (manually created)
-│   ├── footer.md (footer content)
+│   ├── index.md (homepage)
+│   ├── nav.md (original markdown - not used due to server flattening)
+│   ├── nav-custom.html (✅ Custom HTML with colors and HR separators)
+│   ├── footer.md
 │   └── images/
-│       ├── doc-logo.svg (DOC branding with koru)
-│       └── nz-govt-logo.svg (NZ Govt crown emblem)
+│       ├── doc-logo.svg (DOC branding)
+│       └── nz-govt-logo.svg (NZ Govt logo)
+├── nav-custom.html (✅ Root copy - this is what header.js fetches)
 ├── styles/
-│   └── styles.css (modified - added .metadata-wrapper hiding)
+│   └── styles.css
+├── migration-work/ (temp files from migration iterations)
 └── site-migration/
-    └── [this file]
+    └── migration-context-2025-12-16.md (this file)
 ```
 
-## Key Changes Made This Session
-
-### 1. Header and Footer Path Configuration
-**blocks/header/header.js:113**
-```javascript
-const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/content/nav';
-```
-
-**blocks/footer/footer.js:11**
-```javascript
-const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : '/content/footer';
-```
-
-### 2. SVG Logo Files Created
-
-**content/images/doc-logo.svg**
-- Black background with DOC logo
-- Blue/green koru symbol design
-- "Department of Conservation" text
-- "Te Papa Atawhai" subtitle
-
-**content/images/nz-govt-logo.svg**
-- Crown emblem
-- Bilingual text: "Te Kāwanatanga o Aotearoa / New Zealand Government"
-
-### 3. Navigation Content (content/nav.md)
-```markdown
-| Header |
-|---|
-| ![Department of Conservation](./images/doc-logo.svg) |
-| [Parks & recreation](/parks-and-recreation/) [Nature](/nature/) [Get involved](/get-involved/) [Our work](/our-work/) |
-```
-
-### 4. Footer Content (content/footer.md)
-```markdown
-| Footer |
-|---|
-| [Facebook](https://www.facebook.com/docgovtnz) [Blog](https://blog.doc.govt.nz/) [Instagram](https://www.instagram.com/docgovtnz/) [Youtube](https://www.youtube.com/docgovtnz) [Other channels](/news/social-media/) |
-| ![New Zealand Government](./images/nz-govt-logo.svg) |
-| [Careers](/careers/) [News & events](/news/) [About us](/about-us/) [Contact](/footer-links/contact-us/) |
-| [Copyright](/footer-links/copyright/) [About this site](/footer-links/about-this-site/) [Privacy & security](/footer-links/privacy-and-security/) [OIA requests](/footer-links/contact-us/making-an-official-information-act-request/) |
-```
-
-### 5. Manual Plain HTML Creation
-Created `/workspace/content/nav.plain.html` manually because AEM server wasn't auto-generating it.
-
-### 6. Metadata Hiding (styles/styles.css)
-```css
-/* Hide page metadata block */
-main .metadata-wrapper {
-  display: none;
-}
-```
-
-## Git Status (Uncommitted Changes)
+## Git Status - Ready to Commit
 
 ### Modified Files:
-- `blocks/footer/footer.js` - Changed path from `/footer` to `/content/footer`
-- `blocks/header/header.js` - Changed path from `/nav` to `/content/nav`
-- `styles/styles.css` - Added metadata-wrapper hiding rule
+- `blocks/header/header.js` - Added color extraction, list restructuring, custom HTML fetch
+- `blocks/header/header.css` - Added subnav/popular section styling, 14px font size
+- `content/nav.md` - Updated with color specs (not actively used)
+- `content/nav.html` - Auto-generated
 
-### Untracked Directories:
-- `content/` - All content files including nav, footer, index, images
-- `migration-work/` - May contain migration-related files
+### New Files:
+- `nav-custom.html` (root) - ✅ Primary navigation HTML with structure
+- `content/nav-custom.html` - Copy in content directory
 
-## How to Commit This Work
+### Deleted Files:
+- `content/nav.plain.html` - Removed to force custom HTML usage
+
+### Untracked (Not committing):
+- `migration-work/` - Temporary migration iteration files
+
+## Commit Plan
 
 ```bash
-# Add all content files
-git add content/
+# Stage the navigation system files
+git add blocks/header/header.js
+git add blocks/header/header.css
+git add nav-custom.html
+git add content/nav-custom.html
+git add content/nav.md
+git add content/nav.html
 
-# Add modified block files
-git add blocks/header/header.js blocks/footer/footer.js
+# Stage this documentation
+git add site-migration/migration-context-2025-12-16.md
 
-# Add CSS changes
-git add styles/styles.css
+# Commit with descriptive message
+git commit -m "Implement content-managed navigation with dynamic color theming
 
-# Add migration documentation
-git add site-migration/
+- Add color extraction from nav section titles (rgb format)
+- Implement two-section dropdown: subnav (colored) + popular (bordered)
+- Create nav-custom.html to bypass AEM server HTML flattening
+- Add CSS custom properties for per-section color theming
+- Split navigation links using HR separator detection
+- Update font size to 14px to match original DOC site
 
-# Check migration-work directory before adding
-git add migration-work/
+Colors managed in content:
+- Parks & recreation: Blue rgb(21, 121, 183)
+- Nature: Green rgb(80, 127, 57)
+- Get involved: Purple rgb(76, 54, 87)
+- Our work: Brown rgb(128, 51, 26)
 
-# Commit everything
-git commit -m "Add DOC site header/footer with SVG logos and content structure
+🤖 Generated with Claude Code
 
-- Create navigation and footer content with DOC branding
-- Add DOC logo and NZ Government logo SVGs
-- Update header/footer blocks to load from /content directory
-- Add metadata hiding CSS rule
-- Create site-migration documentation folder"
-
-# Push to remote (if configured)
-git push origin main
+Co-Authored-By: Claude <noreply@anthropic.com>"
 ```
-
-## CRITICAL DEBUGGING NEEDED
-
-### Problem: loadFragment() Returns Null
-
-The `blocks/fragment/fragment.js` file contains the `loadFragment()` function. It's returning null, which means either:
-
-1. The fetch is failing (but we verified it returns 200 OK)
-2. `decorateMain(main)` is throwing an error
-3. `await loadSections(main)` is throwing an error
-
-### Next Debugging Steps:
-
-1. **Add error handling to loadFragment** (blocks/fragment/fragment.js):
-```javascript
-export async function loadFragment(path) {
-  if (path && path.startsWith('/')) {
-    try {
-      console.log('[DEBUG] Loading fragment:', path);
-      const resp = await fetch(`${path}.plain.html`);
-      console.log('[DEBUG] Fetch response:', resp.status, resp.ok);
-
-      if (resp.ok) {
-        const main = document.createElement('main');
-        const htmlText = await resp.text();
-        console.log('[DEBUG] Fragment HTML length:', htmlText.length);
-        main.innerHTML = htmlText;
-
-        // reset base path for media to fragment base
-        const resetAttributeBase = (tag, attr) => {
-          main.querySelectorAll(`${tag}[${attr}^="./media_"]`).forEach((elem) => {
-            elem[attr] = new URL(elem.getAttribute(attr), new URL(path, window.location)).href;
-          });
-        };
-        resetAttributeBase('img', 'src');
-        resetAttributeBase('source', 'srcset');
-
-        console.log('[DEBUG] About to decorateMain');
-        decorateMain(main);
-        console.log('[DEBUG] About to loadSections');
-        await loadSections(main);
-        console.log('[DEBUG] Fragment loaded successfully');
-        return main;
-      }
-    } catch (error) {
-      console.error('[ERROR] loadFragment failed:', error);
-      return null;
-    }
-  }
-  return null;
-}
-```
-
-2. **Create footer.plain.html** - Footer might need manual plain.html file like nav does
-
-3. **Check browser console** after adding debug logging to see where exactly the failure occurs
-
-## Previous Session Work Completed
-
-- Made card tiles clickable
-- Styled "More" buttons
-- Created two-column layouts
-- Removed visible page metadata from content area
-- Created separate header/footer content files
-- Set up block structure for homepage (Hero, Feature-Cards, Media releases)
-
-## Preview Server
-
-Local preview runs at `http://localhost:3000`
-- Homepage: `http://localhost:3000/content/index.html`
-- Uses live reload for CSS/JS changes
-
-## Testing Workflow
-
-1. Make changes to files
-2. Navigate to `http://localhost:3000/content/index.html` in browser
-3. Check console for errors
-4. Use browser DevTools to inspect DOM structure
-5. Check Network tab for failed resource loads
-
-## Important Notes
-
-- Server may not auto-generate `.plain.html` files - may need manual creation
-- Browser caching can cause issues - hard refresh (Ctrl+Shift+R) often needed
-- Fragment paths are relative to site root, not content directory
-- Metadata blocks should be hidden with CSS, not removed from markdown
 
 ## Session Recovery Checklist
 
-When starting a new session:
+When starting next session:
 
-1. ✅ Read this file first: `/workspace/site-migration/migration-context-2025-12-16.md`
+1. ✅ Read this file: `/workspace/site-migration/migration-context-2025-12-16.md`
 2. ✅ Check git status: `git status`
-3. ✅ Review modified files: `git diff`
-4. ✅ Start preview server if not running: `npm run up` or equivalent
-5. ✅ Navigate to `http://localhost:3000/content/index.html` to see current state
-6. ✅ Check browser console for errors
-7. ✅ Priority: Debug why `loadFragment()` returns null for header/footer
-8. ✅ Create `/workspace/content/footer.plain.html` manually if needed
+3. ✅ Review if commit was made: `git log -1`
+4. ✅ Navigate to `http://localhost:3000/content/index.html`
+5. ✅ Test navigation dropdowns - verify colors working
+6. 📋 Next priorities:
+   - Review footer implementation
+   - Sync latest content files from original site
+   - Continue with other page migrations
+
+## Key Learnings / Technical Notes
+
+### AEM Server Behavior
+- Dev server dynamically generates `.plain.html` from `.md` files
+- Server transforms/flattens HTML structure on-the-fly
+- Nested markdown lists with HR separators get flattened
+- Static `.html` files can be served by placing them in root directory
+- Server prefers static files over dynamic generation
+
+### Workarounds Implemented
+- Use static HTML (`nav-custom.html`) instead of markdown for complex structures
+- Client-side JavaScript restructuring for layouts that need nesting
+- CSS custom properties for content-managed theming
+- Text node manipulation for extracting metadata from content
+
+### Font Specifications
+- Original DOC site nav: 14px "Clear Sans" font, 400 weight
+- Implemented: 14px size (header.css:23)
+- Font family: Using var(--body-font-family)
+
+## Preview Server
+
+Local preview: `http://localhost:3000`
+- Homepage: `http://localhost:3000/content/index.html`
+- Live reload for CSS/JS changes
+
+## Important Patterns Established
+
+### Content-Managed Styling
+Format: `Section Name (rgb(r, g, b))`
+- JavaScript extracts RGB values
+- Applies as CSS custom property `--subnav-color`
+- Strips color spec from displayed text
+
+### HR Separator Pattern
+```html
+<li><hr></li>
+```
+- Marks boundary between subnav and popular sections
+- JavaScript detects and restructures DOM
+- Separator element removed after processing
+
+### CSS Variable Theming
+```css
+background-color: var(--subnav-color, #2C5234);
+```
+- Per-section color injection
+- Fallback to default green if not set
+- Works with color-mix for hover states
+
+## Previous Session Work (Earlier Today)
+
+- Header and footer path configuration
+- SVG logo creation (DOC and NZ Government)
+- Metadata hiding
+- Basic navigation structure
+- Homepage content blocks
 
 ## Contact Information
 
-- Original site: Department of Conservation New Zealand
+- Original site: Department of Conservation New Zealand (doc.govt.nz)
 - Migration approach: Block-based AEM Edge Delivery Services
-- Content authoring: Document-based (Markdown)
+- Content authoring: Hybrid (Markdown + Custom HTML where needed)

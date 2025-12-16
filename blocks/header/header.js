@@ -113,7 +113,13 @@ export default async function decorate(block) {
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
 
   // Simple fragment load without decoration to avoid infinite loops
-  const resp = await fetch(`${navPath}.plain.html`);
+  // Add cache busting for development
+  const cacheBuster = window.location.hostname === 'localhost' ? `?t=${Date.now()}` : '';
+  // Try custom nav file first (for development), fallback to plain.html
+  let resp = await fetch(`${navPath}-custom.html${cacheBuster}`);
+  if (!resp.ok) {
+    resp = await fetch(`${navPath}.plain.html${cacheBuster}`);
+  }
   if (!resp.ok) {
     // eslint-disable-next-line no-console
     console.error('Failed to load nav:', resp.status);
@@ -141,7 +147,89 @@ export default async function decorate(block) {
     // Look for nav items either in default-content-wrapper or directly in nav-sections
     const selector = ':scope .default-content-wrapper > ul > li, :scope > ul > li';
     navSections.querySelectorAll(selector).forEach((navSection) => {
-      if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
+      if (navSection.querySelector('ul')) {
+        navSection.classList.add('nav-drop');
+
+        // Extract color from section title if present (format: "Title (rgb(r, g, b))")
+        // The title might be in a <p> tag or as a direct text node
+        let titleElement = navSection.querySelector('p');
+        let textNode = null;
+
+        if (titleElement) {
+          const text = titleElement.textContent.trim();
+          const colorMatch = text.match(/\(rgb\([\d,\s]+\)\)/);
+          if (colorMatch) {
+            const color = colorMatch[0].slice(1, -1); // Remove outer parentheses
+            navSection.style.setProperty('--subnav-color', color);
+            titleElement.textContent = text.replace(/\s*\(rgb\([\d,\s]+\)\)/, '');
+          }
+        } else {
+          // Check for direct text node
+          for (const node of navSection.childNodes) {
+            if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+              textNode = node;
+              const text = node.textContent.trim();
+              const colorMatch = text.match(/\(rgb\([\d,\s]+\)\)/);
+              if (colorMatch) {
+                const color = colorMatch[0].slice(1, -1); // Remove outer parentheses
+                navSection.style.setProperty('--subnav-color', color);
+                node.textContent = text.replace(/\s*\(rgb\([\d,\s]+\)\)/, '');
+              }
+              break;
+            }
+          }
+        }
+
+        // Split links into subnav and popular sections based on HR separator
+        const subUL = navSection.querySelector(':scope > ul');
+        if (subUL) {
+          const items = Array.from(subUL.children);
+          const separatorIndex = items.findIndex(item => item.querySelector('hr'));
+
+          if (separatorIndex > 0) {
+            // Create two wrapper list items for subnav and popular
+            const subnavWrapper = document.createElement('li');
+            subnavWrapper.classList.add('nav-subnav-section');
+            const subnavUL = document.createElement('ul');
+
+            const popularWrapper = document.createElement('li');
+            popularWrapper.classList.add('nav-popular-section');
+            const popularHeading = document.createTextNode('Popular');
+            const popularUL = document.createElement('ul');
+
+            // Move items before separator to subnav
+            for (let i = 0; i < separatorIndex; i++) {
+              subnavUL.appendChild(items[i]);
+            }
+
+            // Remove the separator item
+            items[separatorIndex].remove();
+
+            // Move items after separator to popular
+            for (let i = separatorIndex + 1; i < items.length; i++) {
+              popularUL.appendChild(items[i]);
+            }
+
+            subnavWrapper.appendChild(subnavUL);
+            popularWrapper.appendChild(popularHeading);
+            popularWrapper.appendChild(popularUL);
+
+            // Clear and rebuild the list
+            subUL.innerHTML = '';
+            subUL.appendChild(subnavWrapper);
+            subUL.appendChild(popularWrapper);
+          } else {
+            // No separator, treat all as subnav
+            const subnavWrapper = document.createElement('li');
+            subnavWrapper.classList.add('nav-subnav-section');
+            const subnavUL = document.createElement('ul');
+            items.forEach(item => subnavUL.appendChild(item));
+            subnavWrapper.appendChild(subnavUL);
+            subUL.innerHTML = '';
+            subUL.appendChild(subnavWrapper);
+          }
+        }
+      }
       navSection.addEventListener('click', () => {
         if (isDesktop.matches) {
           const expanded = navSection.getAttribute('aria-expanded') === 'true';
