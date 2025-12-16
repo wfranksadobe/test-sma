@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta
+  http-equiv="Content-Security-Policy"
+  content="script-src 'nonce-aem' 'strict-dynamic' 'unsafe-inline' http: https:; base-uri 'self'; object-src 'none';"
+  move-to-http-header="true"
+>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<script nonce="aem" src="/scripts/aem.js" type="module"></script>
+<script nonce="aem" src="/scripts/scripts.js" type="module"></script>
+<link rel="stylesheet" href="/styles/styles.css"/>
+</head>
+<body>
+<header></header>
+<main>
+<div><h1 id="doc-website-migration-context---december-16-2025">DOC Website Migration Context - December 16, 2025</h1>
+<h2 id="project-overview">Project Overview</h2>
+<p>Cloning the New Zealand Department of Conservation (DOC) website using AEM Edge Delivery Services with a block-based architecture.</p>
+<h2 id="current-status-navigation-system-complete-">Current Status: Navigation System Complete ✅</h2>
+<h3 id="latest-session-completed-evening">Latest Session Completed (Evening)</h3>
+<p>Successfully implemented dynamic, content-managed navigation with color theming.</p>
+<h2 id="navigation-system-architecture">Navigation System Architecture</h2>
+<h3 id="key-components">Key Components</h3>
+<ol>
+<li>
+<p><strong>Custom HTML File</strong>: <code>/workspace/nav-custom.html</code> (also copied to <code>/workspace/content/nav-custom.html</code>)</p>
+<ul>
+<li>Static HTML file with color specifications and HR separators</li>
+<li>Used instead of dynamically-generated <code>.plain.html</code> to work around AEM server transformation issues</li>
+</ul>
+</li>
+<li>
+<p><strong>Header JavaScript</strong>: <code>/workspace/blocks/header/header.js</code></p>
+<ul>
+<li>Fetches <code>nav-custom.html</code> (with fallback to <code>nav.plain.html</code>)</li>
+<li>Extracts RGB color values from section titles</li>
+<li>Strips color specifications from displayed text</li>
+<li>Restructures flat list into subnav/popular sections based on <code>&#x3C;hr></code> separators</li>
+</ul>
+</li>
+<li>
+<p><strong>Header CSS</strong>: <code>/workspace/blocks/header/header.css</code></p>
+<ul>
+<li>Uses CSS custom properties (<code>--subnav-color</code>) for dynamic theming</li>
+<li>Styled subnav links as colored buttons</li>
+<li>Styled popular links as white bordered buttons</li>
+<li>Added 14px font size to match original site</li>
+</ul>
+</li>
+</ol>
+<h3 id="navigation-structure">Navigation Structure</h3>
+<p>Each dropdown has two sections:</p>
+<ul>
+<li><strong>Subnav Section</strong>: Main navigation links styled as colored buttons</li>
+<li><strong>Popular Section</strong>: Secondary links styled as white bordered buttons</li>
+</ul>
+<h3 id="color-scheme-content-managed">Color Scheme (Content-Managed)</h3>
+<p>Colors specified in <code>nav-custom.html</code> format: <code>Section Name (rgb(r, g, b))</code></p>
+<ul>
+<li><strong>Parks &#x26; recreation</strong>: Blue - rgb(21, 121, 183)</li>
+<li><strong>Nature</strong>: Green - rgb(80, 127, 57)</li>
+<li><strong>Get involved</strong>: Purple - rgb(76, 54, 87)</li>
+<li><strong>Our work</strong>: Brown - rgb(128, 51, 26)</li>
+</ul>
+<h3 id="technical-implementation-details">Technical Implementation Details</h3>
+<h4 id="problem-aem-server-flattening-html">Problem: AEM Server Flattening HTML</h4>
+<p>The AEM dev server dynamically generates <code>.plain.html</code> from <code>.md</code> files and transforms/flattens nested structures:</p>
+<ul>
+<li>Removes HR elements from nested lists</li>
+<li>Strips color specifications from text</li>
+<li>Flattens 3-level list nesting to 2 levels</li>
+</ul>
+<h4 id="solution-custom-html-bypass">Solution: Custom HTML Bypass</h4>
+<ol>
+<li>Created static <code>nav-custom.html</code> with exact structure needed</li>
+<li>Modified header.js to fetch custom file first, fallback to plain.html</li>
+<li>Used <code>&#x3C;li>&#x3C;hr>&#x3C;/li></code> as separator between subnav and popular links</li>
+<li>JavaScript detects HR and restructures DOM client-side</li>
+</ol>
+<h4 id="color-extraction-logic-headerjs147-175">Color Extraction Logic (header.js:147-175)</h4>
+<pre><code class="language-javascript">// The title might be in a &#x3C;p> tag or as a direct text node
+let titleElement = navSection.querySelector('p');
+if (titleElement) {
+  const text = titleElement.textContent.trim();
+  const colorMatch = text.match(/\(rgb\([\d,\s]+\)\)/);
+  if (colorMatch) {
+    const color = colorMatch[0].slice(1, -1); // Remove outer parentheses
+    navSection.style.setProperty('--subnav-color', color);
+    titleElement.textContent = text.replace(/\s*\(rgb\([\d,\s]+\)\)/, '');
+  }
+} else {
+  // Check for direct text node (our case)
+  for (const node of navSection.childNodes) {
+    if (node.nodeType === Node.TEXT_NODE &#x26;&#x26; node.textContent.trim()) {
+      const text = node.textContent.trim();
+      const colorMatch = text.match(/\(rgb\([\d,\s]+\)\)/);
+      if (colorMatch) {
+        const color = colorMatch[0].slice(1, -1);
+        navSection.style.setProperty('--subnav-color', color);
+        node.textContent = text.replace(/\s*\(rgb\([\d,\s]+\)\)/, '');
+      }
+      break;
+    }
+  }
+}
+</code></pre>
+<h4 id="list-restructuring-logic-headerjs177-224">List Restructuring Logic (header.js:177-224)</h4>
+<pre><code class="language-javascript">const items = Array.from(subUL.children);
+const separatorIndex = items.findIndex(item => item.querySelector('hr'));
+
+if (separatorIndex > 0) {
+  // Create two wrapper list items for subnav and popular
+  const subnavWrapper = document.createElement('li');
+  subnavWrapper.classList.add('nav-subnav-section');
+  const subnavUL = document.createElement('ul');
+
+  const popularWrapper = document.createElement('li');
+  popularWrapper.classList.add('nav-popular-section');
+  const popularHeading = document.createTextNode('Popular');
+  const popularUL = document.createElement('ul');
+
+  // Move items before separator to subnav, after to popular
+  // Remove separator, rebuild structure
+}
+</code></pre>
+<h3 id="css-styling-details-headercss300-366">CSS Styling Details (header.css:300-366)</h3>
+<p><strong>Subnav Section (Colored Buttons)</strong>:</p>
+<pre><code class="language-css">header nav .nav-sections .nav-subnav-section ul li a {
+  display: block;
+  padding: 12px 16px;
+  border-radius: 4px;
+  background-color: var(--subnav-color, #2C5234);
+  color: white;
+  transition: background-color 0.2s;
+  text-decoration: none;
+}
+
+header nav .nav-sections .nav-subnav-section ul li a:hover {
+  background-color: color-mix(in srgb, var(--subnav-color, #2C5234) 80%, black);
+  text-decoration: none;
+}
+</code></pre>
+<p><strong>Popular Section (White Bordered Buttons)</strong>:</p>
+<pre><code class="language-css">header nav .nav-sections .nav-popular-section ul li a {
+  display: block;
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  color: #333;
+  transition: border-color 0.2s, background-color 0.2s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+</code></pre>
+<h2 id="file-structure">File Structure</h2>
+<pre><code>/workspace/
+├── blocks/
+│   ├── header/
+│   │   ├── header.js (✅ Complete - color extraction, list restructuring)
+│   │   └── header.css (✅ Complete - subnav/popular styling, 14px font)
+│   ├── footer/
+│   │   └── footer.js
+│   └── [other blocks...]
+├── content/
+│   ├── index.md (homepage)
+│   ├── nav.md (original markdown - not used due to server flattening)
+│   ├── nav-custom.html (✅ Custom HTML with colors and HR separators)
+│   ├── footer.md
+│   └── images/
+│       ├── doc-logo.svg (DOC branding)
+│       └── nz-govt-logo.svg (NZ Govt logo)
+├── nav-custom.html (✅ Root copy - this is what header.js fetches)
+├── styles/
+│   └── styles.css
+├── migration-work/ (temp files from migration iterations)
+└── site-migration/
+    └── migration-context-2025-12-16.md (this file)
+</code></pre>
+<h2 id="git-status---ready-to-commit">Git Status - Ready to Commit</h2>
+<h3 id="modified-files">Modified Files:</h3>
+<ul>
+<li><code>blocks/header/header.js</code> - Added color extraction, list restructuring, custom HTML fetch</li>
+<li><code>blocks/header/header.css</code> - Added subnav/popular section styling, 14px font size</li>
+<li><code>content/nav.md</code> - Updated with color specs (not actively used)</li>
+<li><code>content/nav.html</code> - Auto-generated</li>
+</ul>
+<h3 id="new-files">New Files:</h3>
+<ul>
+<li><code>nav-custom.html</code> (root) - ✅ Primary navigation HTML with structure</li>
+<li><code>content/nav-custom.html</code> - Copy in content directory</li>
+</ul>
+<h3 id="deleted-files">Deleted Files:</h3>
+<ul>
+<li><code>content/nav.plain.html</code> - Removed to force custom HTML usage</li>
+</ul>
+<h3 id="untracked-not-committing">Untracked (Not committing):</h3>
+<ul>
+<li><code>migration-work/</code> - Temporary migration iteration files</li>
+</ul>
+<h2 id="commit-plan">Commit Plan</h2>
+<pre><code class="language-bash"># Stage the navigation system files
+git add blocks/header/header.js
+git add blocks/header/header.css
+git add nav-custom.html
+git add content/nav-custom.html
+git add content/nav.md
+git add content/nav.html
+
+# Stage this documentation
+git add site-migration/migration-context-2025-12-16.md
+
+# Commit with descriptive message
+git commit -m "Implement content-managed navigation with dynamic color theming
+
+- Add color extraction from nav section titles (rgb format)
+- Implement two-section dropdown: subnav (colored) + popular (bordered)
+- Create nav-custom.html to bypass AEM server HTML flattening
+- Add CSS custom properties for per-section color theming
+- Split navigation links using HR separator detection
+- Update font size to 14px to match original DOC site
+
+Colors managed in content:
+- Parks &#x26; recreation: Blue rgb(21, 121, 183)
+- Nature: Green rgb(80, 127, 57)
+- Get involved: Purple rgb(76, 54, 87)
+- Our work: Brown rgb(128, 51, 26)
+
+🤖 Generated with Claude Code
+
+Co-Authored-By: Claude &#x3C;noreply@anthropic.com>"
+</code></pre>
+<h2 id="session-recovery-checklist">Session Recovery Checklist</h2>
+<p>When starting next session:</p>
+<ol>
+<li>✅ Read this file: <code>/workspace/site-migration/migration-context-2025-12-16.md</code></li>
+<li>✅ Check git status: <code>git status</code></li>
+<li>✅ Review if commit was made: <code>git log -1</code></li>
+<li>✅ Navigate to <code>http://localhost:3000/content/index.html</code></li>
+<li>✅ Test navigation dropdowns - verify colors working</li>
+<li>📋 Next priorities:
+<ul>
+<li>Review footer implementation</li>
+<li>Sync latest content files from original site</li>
+<li>Continue with other page migrations</li>
+</ul>
+</li>
+</ol>
+<h2 id="key-learnings--technical-notes">Key Learnings / Technical Notes</h2>
+<h3 id="aem-server-behavior">AEM Server Behavior</h3>
+<ul>
+<li>Dev server dynamically generates <code>.plain.html</code> from <code>.md</code> files</li>
+<li>Server transforms/flattens HTML structure on-the-fly</li>
+<li>Nested markdown lists with HR separators get flattened</li>
+<li>Static <code>.html</code> files can be served by placing them in root directory</li>
+<li>Server prefers static files over dynamic generation</li>
+</ul>
+<h3 id="workarounds-implemented">Workarounds Implemented</h3>
+<ul>
+<li>Use static HTML (<code>nav-custom.html</code>) instead of markdown for complex structures</li>
+<li>Client-side JavaScript restructuring for layouts that need nesting</li>
+<li>CSS custom properties for content-managed theming</li>
+<li>Text node manipulation for extracting metadata from content</li>
+</ul>
+<h3 id="font-specifications">Font Specifications</h3>
+<ul>
+<li>Original DOC site nav: 14px "Clear Sans" font, 400 weight</li>
+<li>Implemented: 14px size (header.css:23)</li>
+<li>Font family: Using var(--body-font-family)</li>
+</ul>
+<h2 id="preview-server">Preview Server</h2>
+<p>Local preview: <code>http://localhost:3000</code></p>
+<ul>
+<li>Homepage: <code>http://localhost:3000/content/index.html</code></li>
+<li>Live reload for CSS/JS changes</li>
+</ul>
+<h2 id="important-patterns-established">Important Patterns Established</h2>
+<h3 id="content-managed-styling">Content-Managed Styling</h3>
+<p>Format: <code>Section Name (rgb(r, g, b))</code></p>
+<ul>
+<li>JavaScript extracts RGB values</li>
+<li>Applies as CSS custom property <code>--subnav-color</code></li>
+<li>Strips color spec from displayed text</li>
+</ul>
+<h3 id="hr-separator-pattern">HR Separator Pattern</h3>
+<pre><code class="language-html">&#x3C;li>&#x3C;hr>&#x3C;/li>
+</code></pre>
+<ul>
+<li>Marks boundary between subnav and popular sections</li>
+<li>JavaScript detects and restructures DOM</li>
+<li>Separator element removed after processing</li>
+</ul>
+<h3 id="css-variable-theming">CSS Variable Theming</h3>
+<pre><code class="language-css">background-color: var(--subnav-color, #2C5234);
+</code></pre>
+<ul>
+<li>Per-section color injection</li>
+<li>Fallback to default green if not set</li>
+<li>Works with color-mix for hover states</li>
+</ul>
+<h2 id="previous-session-work-earlier-today">Previous Session Work (Earlier Today)</h2>
+<ul>
+<li>Header and footer path configuration</li>
+<li>SVG logo creation (DOC and NZ Government)</li>
+<li>Metadata hiding</li>
+<li>Basic navigation structure</li>
+<li>Homepage content blocks</li>
+</ul>
+<h2 id="contact-information">Contact Information</h2>
+<ul>
+<li>Original site: Department of Conservation New Zealand (doc.govt.nz)</li>
+<li>Migration approach: Block-based AEM Edge Delivery Services</li>
+<li>Content authoring: Hybrid (Markdown + Custom HTML where needed)</li>
+</ul></div>
+</main>
+<footer></footer>
+</body>
+</html>
