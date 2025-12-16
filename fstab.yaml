@@ -1,2 +1,4 @@
 mountpoints:
-  /: https://admin.da.live/source/wfranksadobe/test-sma
+  /:
+    url: https://admin.da.live/source/wfranksadobe/test-sma
+    type: markup
