@@ -46,6 +46,7 @@
 
 | Metadata |  |
 | --- | --- |
-| Title | Haere mai |
+| Title | Department of Conservation |
+| og:title | Haere mai |
 | Description | Tō tātou taiāo. Tō tātou hītori. He tāonga tūturu nō Aotearoa. Maioha rawatia. Poipoia rawatia. Tukua. Our nature. Our history. It's New Zealand's unique legacy. Enjoy it. Enrich it. Pass it on. |
 | og:image | ./images/87611e2ee1ccd22983ed1bce296e3d8c.jpg |
