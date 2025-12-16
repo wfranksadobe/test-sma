@@ -258,7 +258,7 @@ header nav .nav-sections ul > li > ul {
     flex-direction: row;
     gap: 48px;
     position: absolute;
-    left: -24px;
+    left: 0;
     width: 960px;
     top: 150%;
     padding: 32px 40px;
@@ -336,6 +336,7 @@ header nav .nav-sections ul > li > ul {
   }
 
   header nav .nav-sections .nav-popular-section > *:first-child {
+    display: block;
     font-weight: 600;
     margin-bottom: 16px;
     color: #333;
