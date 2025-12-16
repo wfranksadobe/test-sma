@@ -86,7 +86,7 @@ body.appear {
 }
 
 header {
-  height: calc(var(--nav-height) + 12px);
+  height: calc(var(--nav-height) + 20px);
 }
 
 header::before {
@@ -95,7 +95,7 @@ header::before {
   top: 0;
   left: 0;
   right: 0;
-  height: 12px;
+  height: 20px;
   background-color: #F5A623;
   z-index: 3;
 }
