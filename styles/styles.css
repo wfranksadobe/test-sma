@@ -86,11 +86,11 @@ body.appear {
 }
 
 header {
-  height: calc(var(--nav-height) + 20px);
+  height: 124px;
 }
 
 main {
-  margin-top: calc(var(--nav-height) + 20px);
+  margin-top: 124px;
 }
 
 header .header,
