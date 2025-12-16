@@ -279,7 +279,7 @@ header nav .nav-sections ul > li > ul {
   header nav .nav-sections .nav-subnav-section {
     list-style: none;
     flex: 0 0 auto;
-    width: 420px;
+    width: 294px;
   }
 
   header nav .nav-sections .nav-subnav-section ul {
@@ -330,10 +330,12 @@ header nav .nav-sections ul > li > ul {
 
   header nav .nav-sections .nav-popular-section > *:first-child {
     display: block;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: #333;
-    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #000;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   header nav .nav-sections .nav-popular-section ul {
