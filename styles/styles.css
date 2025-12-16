@@ -89,6 +89,17 @@ header {
   height: var(--nav-height);
 }
 
+header::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  background-color: #F5A623;
+  z-index: 3;
+}
+
 header .header,
 footer .footer {
   visibility: hidden;
