@@ -230,6 +230,21 @@ header nav .nav-sections ul > li > ul {
     text-decoration: underline;
   }
 
+  /* Non-dropdown nav items - align with dropdown items */
+  header nav .nav-sections ul > li > p {
+    margin: 0;
+    display: inline;
+  }
+
+  header nav .nav-sections ul > li > p > a {
+    color: white;
+    text-decoration: none;
+  }
+
+  header nav .nav-sections ul > li > p > a:hover {
+    text-decoration: underline;
+  }
+
   header nav .nav-sections .nav-drop::after {
     content: '';
     display: inline-block;
