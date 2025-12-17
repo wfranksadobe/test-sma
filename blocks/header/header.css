@@ -446,19 +446,8 @@ header nav .nav-tools .icon-always-be-naturing {
   top: 100%;
   right: 0;
   margin-top: 8px;
-  background-color: rgb(80, 127, 57);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
-}
-
-header nav .nav-tools .icon-always-be-naturing::before {
-  content: 'Always Be Naturing';
+  width: 133px;
+  height: 129px;
 }
 
 /* Search button styling */
