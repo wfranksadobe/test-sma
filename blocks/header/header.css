@@ -444,8 +444,8 @@ header nav .nav-tools .icon-log-in::before {
 header nav .nav-tools .icon-always-be-naturing {
   position: absolute;
   top: 100%;
-  right: 0;
-  margin-top: 8px;
+  right: 80px;
+  margin-top: -20px;
   width: 133px;
   height: 129px;
 }
