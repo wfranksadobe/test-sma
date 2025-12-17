@@ -445,7 +445,7 @@ header nav .nav-tools .icon-always-be-naturing {
   position: absolute;
   top: 50%;
   right: 200px;
-  transform: translateY(-50%);
+  transform: translateY(0);
   width: 133px;
   height: 129px;
 }
