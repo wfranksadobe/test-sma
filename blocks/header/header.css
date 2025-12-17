@@ -221,7 +221,12 @@ header nav .nav-sections ul > li > ul {
     cursor: pointer;
   }
 
-  header nav .nav-sections .nav-drop:hover {
+  header nav .nav-sections .nav-drop > a {
+    color: white;
+    text-decoration: none;
+  }
+
+  header nav .nav-sections .nav-drop:hover > a {
     text-decoration: underline;
   }
 

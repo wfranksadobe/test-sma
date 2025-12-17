@@ -193,6 +193,29 @@ export default async function decorate(block) {
         }
 
         // Split links into subnav and popular sections based on HR separator
+        // First, merge all direct child ULs into one (markdown creates separate ULs around HR)
+        const allULs = Array.from(navSection.querySelectorAll(':scope > ul'));
+        const hr = navSection.querySelector(':scope > hr');
+
+        if (allULs.length > 1 && hr) {
+          // Merge all ULs into the first one
+          const firstUL = allULs[0];
+          for (let i = 1; i < allULs.length; i++) {
+            // Add HR as a marker in the list
+            if (i === 1) {
+              const hrItem = document.createElement('li');
+              hrItem.appendChild(document.createElement('hr'));
+              firstUL.appendChild(hrItem);
+            }
+            // Move all children from subsequent ULs to first UL
+            while (allULs[i].firstChild) {
+              firstUL.appendChild(allULs[i].firstChild);
+            }
+            allULs[i].remove();
+          }
+          hr.remove();
+        }
+
         const subUL = navSection.querySelector(':scope > ul');
         if (subUL) {
           const items = Array.from(subUL.children);
