@@ -67,8 +67,8 @@
   - [Takahē Recovery Programme](/our-work/takahe-recovery-programme/)
   - [Lead the way](/our-work/lead-the-way/)
   - [Bird banding](/our-work/bird-banding/)
-- [Always Be Naturing](/always-be-naturing/)
-- [Log in](/footer-links/online-service-accounts/)
+- [:always-be-naturing:](/always-be-naturing/)
+- [:log-in:](/footer-links/online-service-accounts/)
 
 ---
 

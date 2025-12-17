@@ -414,9 +414,55 @@ header nav .nav-sections ul > li > ul {
 header nav .nav-tools {
   grid-area: tools;
   margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+}
+
+header nav .nav-tools p {
+  margin: 0;
 }
 
 header nav .nav-tools a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+header nav .nav-tools a:hover {
+  text-decoration: underline;
+}
+
+/* Icon text replacements for nav tools */
+header nav .nav-tools .icon-log-in::before {
+  content: 'Log in';
+}
+
+/* Always Be Naturing badge - hangs below nav */
+header nav .nav-tools .icon-always-be-naturing {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background-color: rgb(80, 127, 57);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+header nav .nav-tools .icon-always-be-naturing::before {
+  content: 'Always Be Naturing';
+}
+
+/* Search button styling */
+header nav .nav-tools p:last-child a {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -426,7 +472,7 @@ header nav .nav-tools a {
   font-size: var(--body-font-size-s);
 }
 
-header nav .nav-tools a:hover {
+header nav .nav-tools p:last-child a:hover {
   background-color: rgba(255, 255, 255, 0.1);
   text-decoration: none;
 }
