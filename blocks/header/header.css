@@ -27,7 +27,7 @@ header nav {
   align-items: center;
   gap: 0 24px;
   min-height: var(--nav-height);
-  padding: 8px 24px;
+  padding: 8px 0;
   font-family: "Clear Sans", "Helvetica Neue", helvetica, arial, sans-serif;
   font-size: 14px;
   color: white;
@@ -35,7 +35,7 @@ header nav {
 
 @media (width >= 900px) {
   header nav {
-    padding: 16px 32px;
+    padding: 16px 0;
   }
 }
 
