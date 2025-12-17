@@ -150,38 +150,45 @@ export default async function decorate(block) {
       if (navSection.querySelector('ul')) {
         navSection.classList.add('nav-drop');
 
-        // Extract color from section title if present (format: "Title (rgb(r, g, b))")
-        // The color code is in a text node (either inside <p> or directly in <li>)
-        let colorFound = false;
+        // Find the primary link (either an <a> tag or need to extract from nav.md structure)
+        // When a list item has nested lists, markdown wraps the content in a <p> tag
+        // We need to find the href from the original markdown and apply it
+        let primaryLink = navSection.querySelector(':scope > a');
+        const firstP = navSection.querySelector(':scope > p');
 
-        // Check all child nodes of navSection for text nodes with color codes
-        for (const node of navSection.childNodes) {
-          if (node.nodeType === Node.TEXT_NODE) {
-            const text = node.textContent.trim();
-            const colorMatch = text.match(/\(rgb\([\d,\s]+\)\)/);
-            if (colorMatch) {
-              const color = colorMatch[0].slice(1, -1); // Remove outer parentheses
-              navSection.style.setProperty('--subnav-color', color);
-              node.textContent = node.textContent.replace(/\s*\(rgb\([\d,\s]+\)\)/, '');
-              colorFound = true;
-              break;
-            }
-          } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'P') {
-            // Check for color code in text nodes within <p>
-            for (const pNode of node.childNodes) {
-              if (pNode.nodeType === Node.TEXT_NODE) {
-                const text = pNode.textContent.trim();
-                const colorMatch = text.match(/\(rgb\([\d,\s]+\)\)/);
-                if (colorMatch) {
-                  const color = colorMatch[0].slice(1, -1); // Remove outer parentheses
-                  navSection.style.setProperty('--subnav-color', color);
-                  pNode.textContent = pNode.textContent.replace(/\s*\(rgb\([\d,\s]+\)\)/, '');
-                  colorFound = true;
-                  break;
-                }
+        // If we have a <p> tag but no direct <a> child, we need to extract the link info
+        // The link should be in the nav.md as [Text](/url/) but markdown processing
+        // with nested lists results in just <p>Text</p>
+        // Solution: Store the info and create link after HR processing
+        if (!primaryLink && firstP) {
+          // Get the text and look for color code
+          const text = firstP.textContent.trim();
+          const colorMatch = text.match(/\(rgb\([\d,\s]+\)\)/);
+          let linkText = text;
+
+          if (colorMatch) {
+            const color = colorMatch[0].slice(1, -1); // Remove outer parentheses
+            navSection.style.setProperty('--subnav-color', color);
+            linkText = text.replace(/\s*\(rgb\([\d,\s]+\)\)/, '');
+          }
+
+          // Store reference to paragraph and text for processing after HR separator restructuring
+          navSection.dataset.needsLink = 'true';
+          navSection.dataset.linkText = linkText.trim();
+          firstP.textContent = linkText.trim();
+        } else if (primaryLink) {
+          // We have a direct link, just extract color code from adjacent text
+          for (const node of navSection.childNodes) {
+            if (node.nodeType === Node.TEXT_NODE) {
+              const text = node.textContent.trim();
+              const colorMatch = text.match(/\(rgb\([\d,\s]+\)\)/);
+              if (colorMatch) {
+                const color = colorMatch[0].slice(1, -1);
+                navSection.style.setProperty('--subnav-color', color);
+                node.textContent = node.textContent.replace(/\s*\(rgb\([\d,\s]+\)\)/, '');
+                break;
               }
             }
-            if (colorFound) break;
           }
         }
 
@@ -234,6 +241,30 @@ export default async function decorate(block) {
             subUL.innerHTML = '';
             subUL.appendChild(subnavWrapper);
           }
+        }
+
+        // Now create primary link if needed (after HR processing is complete)
+        if (navSection.dataset.needsLink === 'true') {
+          const linkText = navSection.dataset.linkText;
+          const firstP = navSection.querySelector(':scope > p');
+
+          // Find the first subnav link after restructuring
+          const firstSubLink = navSection.querySelector(':scope > ul a');
+          if (firstSubLink && firstP) {
+            const subHref = firstSubLink.getAttribute('href');
+            // Extract parent path (e.g., /parks-and-recreation/places-to-go/ -> /parks-and-recreation/)
+            const pathParts = subHref.split('/').filter(p => p); // Remove empty strings
+            const parentPath = pathParts.length > 0 ? '/' + pathParts[0] + '/' : '/';
+
+            // Create anchor tag and replace the <p>
+            const anchor = document.createElement('a');
+            anchor.href = parentPath;
+            anchor.textContent = linkText;
+            firstP.replaceWith(anchor);
+          }
+
+          delete navSection.dataset.needsLink;
+          delete navSection.dataset.linkText;
         }
       }
       // Desktop: open on hover
