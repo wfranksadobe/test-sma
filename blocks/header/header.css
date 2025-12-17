@@ -33,8 +33,8 @@ header nav {
 
 @media (width >= 900px) {
   header nav {
-    padding-left: max(24px, calc((100% - 1248px) / 2));
-    padding-right: max(24px, calc((100% - 1248px) / 2));
+    padding-left: max(24px, calc((100% - 1400px) / 2));
+    padding-right: max(24px, calc((100% - 1400px) / 2));
   }
 }
 
@@ -158,7 +158,7 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
 /* brand */
 header .nav-brand {
   grid-area: brand;
-  flex-basis: 160px;
+  flex-basis: 148.25px;
   font-size: var(--heading-font-size-s);
   font-weight: 700;
   line-height: 1;
@@ -166,8 +166,8 @@ header .nav-brand {
 }
 
 header nav .nav-brand img {
-  width: 160px;
-  height: auto;
+  width: 148.25px;
+  height: 56px;
 }
 
 /* sections */
@@ -268,7 +268,7 @@ header nav .nav-sections ul > li > ul {
 
   header nav .nav-sections ul {
     display: flex;
-    gap: 24px;
+    gap: 16px;
     margin: 0;
   }
 
