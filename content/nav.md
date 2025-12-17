@@ -68,7 +68,7 @@
   - [Lead the way](/our-work/lead-the-way/)
   - [Bird banding](/our-work/bird-banding/)
 - [:always-be-naturing:](/always-be-naturing/)
-- [:log-in:](/footer-links/online-service-accounts/)
+- [:log-in: Log in](/footer-links/online-service-accounts/)
 
 ---
 

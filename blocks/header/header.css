@@ -436,9 +436,16 @@ header nav .nav-tools a:hover {
   text-decoration: underline;
 }
 
-/* Icon text replacements for nav tools */
-header nav .nav-tools .icon-log-in::before {
-  content: 'Log in';
+/* Log in link styling */
+header nav .nav-tools .icon-log-in {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+header nav .nav-tools .icon-log-in img {
+  width: 16px;
+  height: 16px;
 }
 
 /* Always Be Naturing badge - overlaps nav bar */
