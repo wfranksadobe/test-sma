@@ -163,6 +163,20 @@ export default async function decorate(block) {
             navSection.style.setProperty('--subnav-color', color);
             titleElement.textContent = text.replace(/\s*\(rgb\([\d,\s]+\)\)/, '');
           }
+
+          // If primary nav item is not already a link, make it clickable
+          // by converting to a link based on the text
+          const hasLink = titleElement.querySelector('a');
+          if (!hasLink && titleElement.textContent.trim()) {
+            const titleText = titleElement.textContent.trim();
+            // Convert title to URL slug (lowercase, replace spaces/special chars with hyphens)
+            const slug = titleText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+            const link = document.createElement('a');
+            link.href = `/${slug}/`;
+            link.textContent = titleText;
+            titleElement.textContent = '';
+            titleElement.appendChild(link);
+          }
         } else {
           // Check for direct text node
           for (const node of navSection.childNodes) {
@@ -239,12 +253,24 @@ export default async function decorate(block) {
         }
       });
 
-      // Mobile: open on click
-      navSection.addEventListener('click', () => {
+      // Mobile: open on click (but not if clicking a link)
+      navSection.addEventListener('click', (e) => {
+        // Check if click target is a link or inside a link
+        const clickedLink = e.target.closest('a');
+        const isDirectChildLink = clickedLink && clickedLink.parentElement === navSection;
+
         if (!isDesktop.matches) {
-          const expanded = navSection.getAttribute('aria-expanded') === 'true';
-          toggleAllNavSections(navSections);
-          navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+          // On mobile, if clicking the primary link (direct child), allow navigation
+          if (!isDirectChildLink) {
+            e.preventDefault();
+            const expanded = navSection.getAttribute('aria-expanded') === 'true';
+            toggleAllNavSections(navSections);
+            navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+          }
+        } else if (isDirectChildLink) {
+          // On desktop, allow primary link clicks to navigate (don't expand dropdown)
+          // The hover will handle the dropdown
+          return;
         }
       });
     });
