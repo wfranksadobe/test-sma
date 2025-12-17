@@ -144,6 +144,13 @@ export default async function decorate(block) {
     nav.children[2].classList.add('nav-tools');
     // Decorate icons in nav-tools
     decorateIcons(nav.children[2]);
+
+    // Add "Log in" text after icon decoration
+    const logInLink = nav.children[2].querySelector('a[href*="online-service-accounts"]');
+    if (logInLink) {
+      const textNode = document.createTextNode(' Log in');
+      logInLink.appendChild(textNode);
+    }
   }
 
   const navSections = nav.querySelector('.nav-sections');
