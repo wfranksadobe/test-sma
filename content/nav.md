@@ -2,7 +2,7 @@
 
 ---
 
-- Parks & recreation (rgb(21, 121, 183))
+- [Parks & recreation](/parks-and-recreation/) (rgb(21, 121, 183))
   - [Places to go](/parks-and-recreation/places-to-go/)
   - [Things to do](/parks-and-recreation/things-to-do/)
   - [Places to stay](/parks-and-recreation/places-to-stay/)
@@ -12,7 +12,7 @@
   - [Stay at a campsite](/parks-and-recreation/places-to-stay/stay-at-a-campsite/)
   - [Great Walks](/parks-and-recreation/things-to-do/walking-and-tramping/great-walks/)
   - [Stay in a hut](/parks-and-recreation/places-to-stay/stay-in-a-hut/)
-- Nature (rgb(80, 127, 57))
+- [Nature](/nature/) (rgb(80, 127, 57))
   - [Native animals](/nature/native-animals/)
   - [Native plants](/nature/native-plants/)
   - [Pests and threats](/nature/pests-and-threats/)
@@ -21,7 +21,7 @@
   - [Birds A - Z](/nature/native-animals/birds/birds-a-z/)
   - [Kiwi](/nature/native-animals/birds/birds-a-z/kiwi/)
   - [Predator Free 2050](/nature/pests-and-threats/predator-free-2050/)
-- Get involved (rgb(76, 54, 87))
+- [Get involved](/get-involved/) (rgb(76, 54, 87))
   - [Volunteer](/get-involved/volunteer/)
   - [Donate to nature](/get-involved/donate-to-nature/)
   - [Apply for permits](/get-involved/apply-for-permits/)
@@ -30,7 +30,7 @@
   - [Conservation activities](/get-involved/conservation-activities/)
   - [Have your say](/get-involved/have-your-say/)
   - [Online courses](/get-involved/training/online-courses/)
-- Our work (rgb(128, 51, 26))
+- [Our work](/our-work/) (rgb(128, 51, 26))
   - [Heritage](/our-work/heritage/)
   - [Science and research](/our-work/science-and-research/)
   - [Maps and data](/our-work/maps-and-data/)

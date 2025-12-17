@@ -163,20 +163,6 @@ export default async function decorate(block) {
             navSection.style.setProperty('--subnav-color', color);
             titleElement.textContent = text.replace(/\s*\(rgb\([\d,\s]+\)\)/, '');
           }
-
-          // If primary nav item is not already a link, make it clickable
-          // by converting to a link based on the text
-          const hasLink = titleElement.querySelector('a');
-          if (!hasLink && titleElement.textContent.trim()) {
-            const titleText = titleElement.textContent.trim();
-            // Convert title to URL slug (lowercase, replace spaces/special chars with hyphens)
-            const slug = titleText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-            const link = document.createElement('a');
-            link.href = `/${slug}/`;
-            link.textContent = titleText;
-            titleElement.textContent = '';
-            titleElement.appendChild(link);
-          }
         } else {
           // Check for direct text node
           for (const node of navSection.childNodes) {
