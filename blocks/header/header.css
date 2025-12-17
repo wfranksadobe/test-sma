@@ -440,12 +440,12 @@ header nav .nav-tools .icon-log-in::before {
   content: 'Log in';
 }
 
-/* Always Be Naturing badge - hangs below nav */
+/* Always Be Naturing badge - overlaps nav bar */
 header nav .nav-tools .icon-always-be-naturing {
   position: absolute;
-  top: 100%;
-  right: 80px;
-  margin-top: -20px;
+  top: 50%;
+  right: 200px;
+  transform: translateY(-50%);
   width: 133px;
   height: 129px;
 }
