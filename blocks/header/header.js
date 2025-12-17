@@ -1,4 +1,4 @@
-import { getMetadata } from '../../scripts/aem.js';
+import { getMetadata, decorateIcons } from '../../scripts/aem.js';
 
 // media query match that indicates mobile/tablet width
 const isDesktop = window.matchMedia('(min-width: 900px)');
@@ -140,7 +140,11 @@ export default async function decorate(block) {
   // Simple structure - just add basic classes if children exist
   if (nav.children[0]) nav.children[0].classList.add('nav-brand');
   if (nav.children[1]) nav.children[1].classList.add('nav-sections');
-  if (nav.children[2]) nav.children[2].classList.add('nav-tools');
+  if (nav.children[2]) {
+    nav.children[2].classList.add('nav-tools');
+    // Decorate icons in nav-tools
+    decorateIcons(nav.children[2]);
+  }
 
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
