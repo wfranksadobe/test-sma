@@ -231,13 +231,29 @@ export default async function decorate(block) {
           }
         }
       }
-      navSection.addEventListener('click', () => {
+      // Desktop: open on hover
+      navSection.addEventListener('mouseenter', () => {
         if (isDesktop.matches) {
+          toggleAllNavSections(navSections);
+          navSection.setAttribute('aria-expanded', 'true');
+        }
+      });
+
+      // Mobile: open on click
+      navSection.addEventListener('click', () => {
+        if (!isDesktop.matches) {
           const expanded = navSection.getAttribute('aria-expanded') === 'true';
           toggleAllNavSections(navSections);
           navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
         }
       });
+    });
+
+    // Close dropdown when mouse leaves nav
+    nav.addEventListener('mouseleave', () => {
+      if (isDesktop.matches) {
+        toggleAllNavSections(navSections, false);
+      }
     });
   }
 

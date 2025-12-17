@@ -221,6 +221,10 @@ header nav .nav-sections ul > li > ul {
     cursor: pointer;
   }
 
+  header nav .nav-sections .nav-drop:hover {
+    text-decoration: underline;
+  }
+
   header nav .nav-sections .nav-drop::after {
     content: '';
     display: inline-block;
