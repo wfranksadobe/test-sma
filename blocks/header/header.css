@@ -4,6 +4,7 @@ header .nav-wrapper {
   top: 0;
   width: 100%;
   z-index: 3;
+  background-color: rgb(25, 64, 54);
 }
 
 header .nav-wrapper::before {
@@ -15,9 +16,8 @@ header .nav-wrapper::before {
 }
 
 header nav {
-  background-color: rgb(25, 64, 54);
   width: 100%;
-  max-width: 1400px;
+  max-width: 1066px;
   margin: 0 auto;
   box-sizing: border-box;
   display: grid;
@@ -35,8 +35,7 @@ header nav {
 
 @media (width >= 900px) {
   header nav {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding: 16px 32px;
   }
 }
 
