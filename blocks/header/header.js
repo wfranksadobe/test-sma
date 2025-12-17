@@ -151,32 +151,37 @@ export default async function decorate(block) {
         navSection.classList.add('nav-drop');
 
         // Extract color from section title if present (format: "Title (rgb(r, g, b))")
-        // The title might be in a <p> tag or as a direct text node
-        let titleElement = navSection.querySelector('p');
-        let textNode = null;
+        // The color code is in a text node (either inside <p> or directly in <li>)
+        let colorFound = false;
 
-        if (titleElement) {
-          const text = titleElement.textContent.trim();
-          const colorMatch = text.match(/\(rgb\([\d,\s]+\)\)/);
-          if (colorMatch) {
-            const color = colorMatch[0].slice(1, -1); // Remove outer parentheses
-            navSection.style.setProperty('--subnav-color', color);
-            titleElement.textContent = text.replace(/\s*\(rgb\([\d,\s]+\)\)/, '');
-          }
-        } else {
-          // Check for direct text node
-          for (const node of navSection.childNodes) {
-            if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
-              textNode = node;
-              const text = node.textContent.trim();
-              const colorMatch = text.match(/\(rgb\([\d,\s]+\)\)/);
-              if (colorMatch) {
-                const color = colorMatch[0].slice(1, -1); // Remove outer parentheses
-                navSection.style.setProperty('--subnav-color', color);
-                node.textContent = text.replace(/\s*\(rgb\([\d,\s]+\)\)/, '');
-              }
+        // Check all child nodes of navSection for text nodes with color codes
+        for (const node of navSection.childNodes) {
+          if (node.nodeType === Node.TEXT_NODE) {
+            const text = node.textContent.trim();
+            const colorMatch = text.match(/\(rgb\([\d,\s]+\)\)/);
+            if (colorMatch) {
+              const color = colorMatch[0].slice(1, -1); // Remove outer parentheses
+              navSection.style.setProperty('--subnav-color', color);
+              node.textContent = node.textContent.replace(/\s*\(rgb\([\d,\s]+\)\)/, '');
+              colorFound = true;
               break;
             }
+          } else if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'P') {
+            // Check for color code in text nodes within <p>
+            for (const pNode of node.childNodes) {
+              if (pNode.nodeType === Node.TEXT_NODE) {
+                const text = pNode.textContent.trim();
+                const colorMatch = text.match(/\(rgb\([\d,\s]+\)\)/);
+                if (colorMatch) {
+                  const color = colorMatch[0].slice(1, -1); // Remove outer parentheses
+                  navSection.style.setProperty('--subnav-color', color);
+                  pNode.textContent = pNode.textContent.replace(/\s*\(rgb\([\d,\s]+\)\)/, '');
+                  colorFound = true;
+                  break;
+                }
+              }
+            }
+            if (colorFound) break;
           }
         }
 
