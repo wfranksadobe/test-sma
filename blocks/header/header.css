@@ -10,7 +10,7 @@ header .nav-wrapper::before {
   content: '';
   display: block;
   height: 20px;
-  background-color: #F5A623;
+  background-color: rgb(255, 197, 29);
   width: 100%;
 }
 
@@ -26,7 +26,7 @@ header nav {
   gap: 0 24px;
   min-height: var(--nav-height);
   padding: 8px 24px;
-  font-family: var(--body-font-family);
+  font-family: "Clear Sans", "Helvetica Neue", helvetica, arial, sans-serif;
   font-size: 14px;
   color: white;
 }
