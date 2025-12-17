@@ -17,6 +17,8 @@ header .nav-wrapper::before {
 header nav {
   background-color: rgb(25, 64, 54);
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
   box-sizing: border-box;
   display: grid;
   grid-template:
@@ -33,8 +35,8 @@ header nav {
 
 @media (width >= 900px) {
   header nav {
-    padding-left: max(24px, calc((100% - 1400px) / 2));
-    padding-right: max(24px, calc((100% - 1400px) / 2));
+    padding-left: 24px;
+    padding-right: 24px;
   }
 }
 
