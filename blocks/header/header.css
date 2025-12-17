@@ -429,7 +429,10 @@ header nav .nav-tools a {
   color: white;
   text-decoration: none;
   font-size: 14px;
+  font-weight: 400;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
 }
 
 header nav .nav-tools a:hover {
@@ -441,11 +444,13 @@ header nav .nav-tools .icon-log-in {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  vertical-align: middle;
 }
 
 header nav .nav-tools .icon-log-in img {
   width: 16px;
   height: 16px;
+  display: block;
 }
 
 /* Always Be Naturing badge - overlaps nav bar */
