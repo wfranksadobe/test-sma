@@ -26,14 +26,41 @@ export default function decorate(block) {
     container.appendChild(imageDiv);
   }
 
-  // Add content
+  // Add content with structured extraction
   if (contentCell) {
     const contentDiv = document.createElement('div');
     contentDiv.className = 'feature-card-content';
 
-    // Move all content from contentCell
+    // Extract label (first <strong> or <em> tag)
+    const firstStrong = contentCell.querySelector('strong, em');
+    if (firstStrong) {
+      const label = document.createElement('span');
+      label.className = 'feature-card-label';
+      label.textContent = firstStrong.textContent;
+      contentDiv.appendChild(label);
+      firstStrong.remove();
+    }
+
+    // Extract link (last <a> tag) - will be styled as CTA button
+    const links = contentCell.querySelectorAll('a');
+    const ctaLink = links.length > 0 ? links[links.length - 1] : null;
+    if (ctaLink) {
+      ctaLink.classList.add('feature-card-cta');
+      // Remove from original position, will append at end
+      ctaLink.remove();
+    }
+
+    // Move remaining content (description text)
+    const descriptionDiv = document.createElement('div');
+    descriptionDiv.className = 'feature-card-description';
     while (contentCell.firstChild) {
-      contentDiv.appendChild(contentCell.firstChild);
+      descriptionDiv.appendChild(contentCell.firstChild);
+    }
+    contentDiv.appendChild(descriptionDiv);
+
+    // Append CTA link at the end
+    if (ctaLink) {
+      contentDiv.appendChild(ctaLink);
     }
 
     container.appendChild(contentDiv);
