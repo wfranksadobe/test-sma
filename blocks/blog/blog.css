@@ -1,6 +1,12 @@
 .blog {
-  margin: 40px 0;
+  margin: 40px -24px;
   padding: 0 !important;
+}
+
+@media (width >= 900px) {
+  .blog {
+    margin: 40px -32px;
+  }
 }
 
 /* Blog heading - styled like Feature heading */
