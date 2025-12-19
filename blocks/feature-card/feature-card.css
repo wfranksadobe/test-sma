@@ -8,6 +8,11 @@ main > .section > div:has(.feature-card) {
   padding: 0 !important;
 }
 
+/* Remove top margin in two-column layouts for alignment */
+main .section.two-column-layout .feature-card {
+  margin-top: 0;
+}
+
 .feature-card-card {
   display: flex;
   flex-direction: column;

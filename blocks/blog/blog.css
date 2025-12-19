@@ -8,6 +8,16 @@ main > .section > div:has(.blog) {
   padding: 0 !important;
 }
 
+/* Remove top margin in two-column layouts for alignment */
+main .section.two-column-layout .blog {
+  margin-top: 0;
+}
+
+/* Remove heading bottom margin in two-column layouts for alignment */
+main .section.two-column-layout .blog h2 {
+  margin-bottom: 0;
+}
+
 /* Blog heading - styled like Feature heading */
 .blog h2 {
   background-color: #384246;
