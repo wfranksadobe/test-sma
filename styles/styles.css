@@ -340,7 +340,7 @@ main .section.two-column-layout h2 {
 main .section.two-column-layout .cards-wrapper {
   margin: 0;
   background-color: white;
-  padding: 24px;
+  padding: 16px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 

@@ -1,18 +1,36 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
 export default function decorate(block) {
-  // Feature card - single large promotional card with image and content
-  const row = block.querySelector(':scope > div');
-  if (!row) return;
+  // Feature card - displays promotional card with image, title, and abstract
+  const rows = [...block.children];
+  if (rows.length === 0) return;
 
-  const imageCell = row.querySelector('div:first-child');
-  const contentCell = row.querySelector('div:last-child');
+  // Process the first row (feature content)
+  const row = rows[0];
+  const cells = row.querySelectorAll(':scope > div');
+  if (cells.length < 4) return;
 
-  // Create container
-  const container = document.createElement('div');
-  container.className = 'feature-card-container';
+  const [imageCell, titleCell, abstractCell, linkCell] = cells;
 
-  // Add image
+  // Get link URL from 4th cell
+  let cardLink = null;
+  if (linkCell) {
+    const linkText = linkCell.textContent.trim();
+    if (linkText.startsWith('http') || linkText.startsWith('/')) {
+      cardLink = linkText;
+    } else {
+      const anchor = linkCell.querySelector('a');
+      if (anchor) {
+        cardLink = anchor.getAttribute('href');
+      }
+    }
+  }
+
+  // Create card
+  const card = document.createElement('div');
+  card.className = 'feature-card-card';
+
+  // Add image - full width at top
   if (imageCell) {
     const imageDiv = document.createElement('div');
     imageDiv.className = 'feature-card-image';
@@ -23,49 +41,36 @@ export default function decorate(block) {
         imageDiv.appendChild(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]));
       }
     }
-    container.appendChild(imageDiv);
+    card.appendChild(imageDiv);
   }
 
-  // Add content with structured extraction
-  if (contentCell) {
-    const contentDiv = document.createElement('div');
-    contentDiv.className = 'feature-card-content';
-
-    // Extract label (first <strong> or <em> tag)
-    const firstStrong = contentCell.querySelector('strong, em');
-    if (firstStrong) {
-      const label = document.createElement('span');
-      label.className = 'feature-card-label';
-      label.textContent = firstStrong.textContent;
-      contentDiv.appendChild(label);
-      firstStrong.remove();
-    }
-
-    // Extract link (last <a> tag) - will be styled as CTA button
-    const links = contentCell.querySelectorAll('a');
-    const ctaLink = links.length > 0 ? links[links.length - 1] : null;
-    if (ctaLink) {
-      ctaLink.classList.add('feature-card-cta');
-      // Remove from original position, will append at end
-      ctaLink.remove();
-    }
-
-    // Move remaining content (description text)
-    const descriptionDiv = document.createElement('div');
-    descriptionDiv.className = 'feature-card-description';
-    while (contentCell.firstChild) {
-      descriptionDiv.appendChild(contentCell.firstChild);
-    }
-    contentDiv.appendChild(descriptionDiv);
-
-    // Append CTA link at the end
-    if (ctaLink) {
-      contentDiv.appendChild(ctaLink);
-    }
-
-    container.appendChild(contentDiv);
+  // Add title - styled like the dark grey heading
+  if (titleCell && titleCell.textContent.trim()) {
+    const title = document.createElement('h2');
+    title.className = 'feature-card-title';
+    title.textContent = titleCell.textContent.trim();
+    card.appendChild(title);
   }
 
-  block.textContent = '';
-  block.appendChild(container);
+  // Add abstract
+  if (abstractCell && abstractCell.textContent.trim()) {
+    const abstract = document.createElement('p');
+    abstract.className = 'feature-card-abstract';
+    abstract.textContent = abstractCell.textContent.trim();
+    card.appendChild(abstract);
+  }
+
+  // Wrap card in link if URL provided
+  if (cardLink) {
+    const linkWrapper = document.createElement('a');
+    linkWrapper.href = cardLink;
+    linkWrapper.className = 'feature-card-link';
+    linkWrapper.appendChild(card);
+
+    block.textContent = '';
+    block.appendChild(linkWrapper);
+  } else {
+    block.textContent = '';
+    block.appendChild(card);
+  }
 }

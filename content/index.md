@@ -6,9 +6,9 @@
 
 ---
 
-| Feature-Card |  |
-| --- | --- |
-| ![Always Be Naturing](./images/d60949cbe9481014d31439cc62768882.png) | **Always Be Naturing**<br><br>Kiwis everywhere are helping nature bounce back – in our backyards, communities and even from our couches. Join the Always Be Naturing movement and be part of the change.<br><br>[Learn more](/always-be-naturing/) |
+| Feature-Card |  |  |  |
+| --- | --- | --- | --- |
+| ![Always Be Naturing](./images/d60949cbe9481014d31439cc62768882.png) | Always Be Naturing | Kiwis everywhere are helping nature bounce back – in our backyards, communities and even from our couches. Join the Always Be Naturing movement and be part of the change. | /always-be-naturing/ |
 
 | Blog |  |  |  |  |
 | --- | --- | --- | --- | --- |
