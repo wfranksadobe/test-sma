@@ -160,13 +160,13 @@ footer .footer .footer > div:nth-child(4) a:last-child {
 }
 
 /* Link styling */
-footer a {
+footer a:any-link {
   color: white;
   text-decoration: none;
   transition: opacity 0.2s;
 }
 
-footer a:hover {
+footer a:any-link:hover {
   opacity: 0.8;
   text-decoration: underline;
 }
