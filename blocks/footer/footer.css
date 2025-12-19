@@ -7,7 +7,7 @@ footer {
 /* Main container - the innermost .footer div that contains the rows */
 footer .footer .footer {
   margin: auto;
-  max-width: 1200px;
+  max-width: 1066px;
   padding: 40px 24px 24px;
   visibility: visible !important;
 }
@@ -34,15 +34,16 @@ footer .footer .footer > div:first-child > div:last-child {
 footer .footer .footer > div:first-child a {
   display: inline;
   white-space: nowrap;
-  margin: 0 20px;
+  padding: 0 20px;
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 footer .footer .footer > div:first-child a:first-child {
-  margin-left: 0;
+  padding-left: 0;
 }
 
 footer .footer .footer > div:first-child a:last-child {
-  margin-right: 0;
+  border-right: none;
 }
 
 /* Horizontal divider after social media */
@@ -120,12 +121,12 @@ footer .footer .footer > div:nth-child(2) picture {
 }
 
 footer .footer .footer > div:nth-child(2) img {
-  max-width: 200px;
+  max-width: 280px;
   height: auto;
   filter: brightness(0) invert(1);
 }
 
-/* Primary and Secondary link rows - horizontal with pipe separators */
+/* Primary and Secondary link rows - horizontal layout */
 footer .footer .footer > div:nth-child(3) > div:last-child,
 footer .footer .footer > div:nth-child(4) > div:last-child {
   display: flex;
@@ -133,6 +134,22 @@ footer .footer .footer > div:nth-child(4) > div:last-child {
   justify-content: center;
   align-items: center;
   gap: 0;
+}
+
+/* Add backslash separator after Primary links section */
+footer .footer .footer > div:nth-child(3)::after {
+  content: '\\';
+  display: block;
+  text-align: center;
+  font-size: 20px;
+  color: white;
+  margin: 8px 0;
+}
+
+@media (width >= 768px) {
+  footer .footer .footer > div:nth-child(3)::after {
+    text-align: left;
+  }
 }
 
 @media (width >= 768px) {
