@@ -2,9 +2,27 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 
 export default function decorate(block) {
   // Blog block - displays blog post with date, title, abstract, image, and link
-  const row = block.querySelector(':scope > div');
-  if (!row) return;
+  const rows = [...block.children];
+  if (rows.length === 0) return;
 
+  // Check if there's a second row with a footer link
+  let footerLink = null;
+  if (rows.length > 1) {
+    const secondRow = rows[1];
+    const secondRowCells = secondRow.querySelectorAll(':scope > div');
+    // Footer link row has a link in the first cell, rest are empty
+    if (secondRowCells.length >= 1) {
+      const firstCell = secondRowCells[0];
+      const link = firstCell.querySelector('a');
+      // Check if first cell has a link and no picture (not a blog card row)
+      if (link && !firstCell.querySelector('picture')) {
+        footerLink = link.cloneNode(true);
+      }
+    }
+  }
+
+  // Process the first row (blog content)
+  const row = rows[0];
   const cells = row.querySelectorAll(':scope > div');
   if (cells.length < 5) return;
 
@@ -52,7 +70,7 @@ export default function decorate(block) {
     contentWrapper.appendChild(imageDiv);
   }
 
-  // Add content div with abstract and link
+  // Add content div with abstract
   const contentDiv = document.createElement('div');
   contentDiv.className = 'blog-content';
 
@@ -92,4 +110,12 @@ export default function decorate(block) {
   block.textContent = '';
   block.appendChild(heading);
   block.appendChild(cardLink);
+
+  // Add footer link if present
+  if (footerLink) {
+    const footer = document.createElement('div');
+    footer.className = 'blog-footer';
+    footer.appendChild(footerLink);
+    block.appendChild(footer);
+  }
 }

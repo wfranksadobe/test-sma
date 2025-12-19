@@ -136,3 +136,40 @@ main > .section > div:has(.blog) {
     gap: 16px;
   }
 }
+
+/* Blog footer link */
+.blog-footer {
+  margin-top: 0;
+  text-align: right;
+  background-color: white;
+  padding: 16px 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.blog-footer p {
+  margin: 0;
+}
+
+.blog-footer a.button,
+.blog-footer a {
+  font-weight: 400;
+  text-decoration: none;
+  color: white !important;
+  /* Dark teal square button styling matching original site */
+  background-color: #194036 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 12px 20px !important;
+  margin: 0 !important;
+  font-size: 16px !important;
+  line-height: 1.2 !important;
+  display: inline-block !important;
+  transition: background-color 0.3s ease;
+}
+
+.blog-footer a.button:hover,
+.blog-footer a:hover {
+  text-decoration: none !important;
+  color: white !important;
+  background-color: #133028 !important;
+}
