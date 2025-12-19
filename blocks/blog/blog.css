@@ -1,5 +1,6 @@
 .blog {
   margin: 40px 0;
+  padding: 0 !important;
 }
 
 /* Blog heading - styled like Feature heading */
