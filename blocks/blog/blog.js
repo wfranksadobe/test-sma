@@ -10,14 +10,9 @@ export default function decorate(block) {
 
   const [dateCell, titleCell, abstractCell, imageCell, linkCell] = cells;
 
-  // Create container
-  const container = document.createElement('div');
-  container.className = 'blog-container';
-
-  // Add heading
+  // Add heading directly to block
   const heading = document.createElement('h2');
   heading.textContent = 'Blog';
-  container.appendChild(heading);
 
   // Create card
   const card = document.createElement('div');
@@ -93,8 +88,8 @@ export default function decorate(block) {
   cardLink.href = blogUrl;
   cardLink.className = 'blog-card-link';
   cardLink.appendChild(card);
-  container.appendChild(cardLink);
 
   block.textContent = '';
-  block.appendChild(container);
+  block.appendChild(heading);
+  block.appendChild(cardLink);
 }
