@@ -12,7 +12,7 @@
 
 | Blog |  |  |  |  |
 | --- | --- | --- | --- | --- |
-| 18 December 2025 | Whale Strandings: What you need to know | Read about everything you need to know about whale stranding in New Zealand and what to do if come across one this summer. | ![Blog post](./images/1849541c266afd3ab26b47f94ccd3403.png) | https://blog.doc.govt.nz/2025/12/18/whale-strandings-what-you-need-to-know/ |
+| 18 December 2025 | Whale Strandings: What you need to know | Read about everything you need to know about whale stranding in New Zealand and what to do if come across one this summer. | ![Whale stranding](./images/whale-stranding.jpg) | https://blog.doc.govt.nz/2025/12/18/whale-strandings-what-you-need-to-know/ |
 
 | Section Metadata |  |
 | --- | --- |
