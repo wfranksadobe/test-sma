@@ -69,18 +69,31 @@ export default function decorate(block) {
     contentDiv.appendChild(abstract);
   }
 
-  // Add link
+  contentWrapper.appendChild(contentDiv);
+  card.appendChild(contentWrapper);
+
+  // Get the link URL
+  let blogUrl = '#';
   if (linkCell) {
-    const link = linkCell.querySelector('a');
-    if (link) {
-      link.classList.add('blog-cta');
-      contentDiv.appendChild(link);
+    const linkText = linkCell.textContent.trim();
+    // Check if it's a URL (starts with http or /)
+    if (linkText.startsWith('http') || linkText.startsWith('/')) {
+      blogUrl = linkText;
+    } else {
+      // Try to find an anchor tag
+      const anchor = linkCell.querySelector('a');
+      if (anchor) {
+        blogUrl = anchor.getAttribute('href') || '#';
+      }
     }
   }
 
-  contentWrapper.appendChild(contentDiv);
-  card.appendChild(contentWrapper);
-  container.appendChild(card);
+  // Wrap the entire card in a link
+  const cardLink = document.createElement('a');
+  cardLink.href = blogUrl;
+  cardLink.className = 'blog-card-link';
+  cardLink.appendChild(card);
+  container.appendChild(cardLink);
 
   block.textContent = '';
   block.appendChild(container);
