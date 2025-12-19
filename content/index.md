@@ -14,12 +14,6 @@
 | --- | --- | --- | --- | --- |
 | 16 December 2025 | Insidious invasives pose major threat to freshwater | Invasive freshwater species are posing a major threat to New Zealand's native fish and waterways. | ![Blog post](./images/1849541c266afd3ab26b47f94ccd3403.png) | https://blog.doc.govt.nz/2025/12/16/insidious-invasives-pose-major-threat-to-freshwater/ |
 
-| Section Metadata |  |
-| --- | --- |
-| Style | two-column-layout |
-
----
-
 ## Featured
 
 | Cards (2-columns) |  |  |
