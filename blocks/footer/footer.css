@@ -87,7 +87,8 @@ footer .footer .footer > div:nth-child(n+2) {
     grid-column: 2 / -1;
     grid-row: 2 / 3;
     padding-top: 24px;
-    display: inline;
+    display: inline-block;
+    vertical-align: top;
   }
 
   footer .footer .footer {
@@ -117,7 +118,7 @@ footer .footer .footer > div:nth-child(2) img {
   filter: brightness(0) invert(1);
 }
 
-/* Primary and Secondary link rows - horizontal layout */
+/* Primary and Secondary link rows - horizontal layout on same line */
 footer .footer .footer > div:nth-child(3) > div:last-child,
 footer .footer .footer > div:nth-child(4) > div:last-child {
   display: inline-flex;
@@ -125,15 +126,17 @@ footer .footer .footer > div:nth-child(4) > div:last-child {
   justify-content: center;
   align-items: center;
   gap: 0;
+  font-size: 13px;
 }
 
 /* Add pipe separator after Primary links section */
 footer .footer .footer > div:nth-child(3)::after {
   content: '|';
   display: inline;
-  font-size: 16px;
+  font-size: 13px;
   color: white;
-  margin: 0 16px;
+  margin: 0 12px;
+  vertical-align: baseline;
 }
 
 @media (width >= 768px) {
@@ -147,7 +150,8 @@ footer .footer .footer > div:nth-child(3) a,
 footer .footer .footer > div:nth-child(4) a {
   display: inline;
   white-space: nowrap;
-  margin: 0 16px;
+  margin: 0 12px;
+  font-size: 13px;
 }
 
 footer .footer .footer > div:nth-child(3) a:first-child,
@@ -155,7 +159,10 @@ footer .footer .footer > div:nth-child(4) a:first-child {
   margin-left: 0;
 }
 
-footer .footer .footer > div:nth-child(3) a:last-child,
+footer .footer .footer > div:nth-child(3) a:last-child {
+  margin-right: 0;
+}
+
 footer .footer .footer > div:nth-child(4) a:last-child {
   margin-right: 0;
 }
