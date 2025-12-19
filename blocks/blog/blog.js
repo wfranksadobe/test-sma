@@ -23,6 +23,26 @@ export default function decorate(block) {
   const card = document.createElement('div');
   card.className = 'blog-card';
 
+  // Add date - full width at top
+  if (dateCell && dateCell.textContent.trim()) {
+    const date = document.createElement('p');
+    date.className = 'blog-date';
+    date.textContent = dateCell.textContent.trim();
+    card.appendChild(date);
+  }
+
+  // Add title - full width below date
+  if (titleCell && titleCell.textContent.trim()) {
+    const title = document.createElement('h3');
+    title.className = 'blog-title';
+    title.textContent = titleCell.textContent.trim();
+    card.appendChild(title);
+  }
+
+  // Create wrapper for image and content side by side
+  const contentWrapper = document.createElement('div');
+  contentWrapper.className = 'blog-content-wrapper';
+
   // Add image
   if (imageCell) {
     const imageDiv = document.createElement('div');
@@ -34,28 +54,12 @@ export default function decorate(block) {
         imageDiv.appendChild(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]));
       }
     }
-    card.appendChild(imageDiv);
+    contentWrapper.appendChild(imageDiv);
   }
 
-  // Add content
+  // Add content div with abstract and link
   const contentDiv = document.createElement('div');
   contentDiv.className = 'blog-content';
-
-  // Add date
-  if (dateCell && dateCell.textContent.trim()) {
-    const date = document.createElement('p');
-    date.className = 'blog-date';
-    date.textContent = dateCell.textContent.trim();
-    contentDiv.appendChild(date);
-  }
-
-  // Add title
-  if (titleCell && titleCell.textContent.trim()) {
-    const title = document.createElement('h3');
-    title.className = 'blog-title';
-    title.textContent = titleCell.textContent.trim();
-    contentDiv.appendChild(title);
-  }
 
   // Add abstract
   if (abstractCell && abstractCell.textContent.trim()) {
@@ -74,7 +78,8 @@ export default function decorate(block) {
     }
   }
 
-  card.appendChild(contentDiv);
+  contentWrapper.appendChild(contentDiv);
+  card.appendChild(contentWrapper);
   container.appendChild(card);
 
   block.textContent = '';

@@ -27,6 +27,37 @@
   max-width: 100%;
 }
 
+/* Date styling - full width at top */
+.blog-date {
+  font-size: var(--body-font-size-s, 14px);
+  color: var(--text-color, #333);
+  margin: 0;
+  padding: 16px 24px 8px 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Title styling - full width below date */
+.blog-title {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0 24px 16px 24px;
+  color: var(--text-color, #333);
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--heading-font-family, inherit);
+}
+
+/* Content wrapper for image and abstract side by side */
+.blog-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 24px 24px 24px;
+}
+
 .blog-image {
   line-height: 0;
   flex-shrink: 0;
@@ -40,26 +71,9 @@
 }
 
 .blog-content {
-  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-}
-
-/* Date styling */
-.blog-date {
-  font-size: var(--body-font-size-s, 14px);
-  color: var(--text-color, #333);
-  margin: 0;
-}
-
-/* Title styling */
-.blog-title {
-  font-size: var(--heading-font-size-m, 24px);
-  font-weight: 700;
-  line-height: 1.3;
-  margin: 0;
-  color: var(--text-color, #333);
+  gap: 16px;
 }
 
 /* Abstract styling */
@@ -91,15 +105,19 @@
   color: white !important;
 }
 
-/* Desktop layout - side by side */
+/* Desktop layout - image and abstract side by side */
 @media (width >= 768px) {
-  .blog-card {
+  .blog-title {
+    font-size: 42px;
+  }
+
+  .blog-content-wrapper {
     flex-direction: row;
-    align-items: stretch;
+    gap: 24px;
   }
 
   .blog-image {
-    flex: 0 0 40%;
+    flex: 0 0 50%;
   }
 
   .blog-image img {
@@ -108,26 +126,13 @@
   }
 
   .blog-content {
-    flex: 1;
-    padding: 32px;
-    justify-content: center;
-  }
-
-  .blog-title {
-    font-size: var(--heading-font-size-l, 28px);
+    flex: 0 0 50%;
+    justify-content: flex-start;
   }
 }
 
 @media (width >= 1024px) {
-  .blog-image {
-    flex: 0 0 45%;
-  }
-
-  .blog-content {
-    padding: 40px;
-  }
-
-  .blog-title {
-    font-size: var(--heading-font-size-xl, 32px);
+  .blog-content-wrapper {
+    gap: 32px;
   }
 }
