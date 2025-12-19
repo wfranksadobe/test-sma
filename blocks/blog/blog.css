@@ -1,12 +1,11 @@
-.blog {
-  margin: 40px -24px;
+/* Override parent section padding for blog container */
+main > .section > div:has(.blog) {
   padding: 0 !important;
 }
 
-@media (width >= 900px) {
-  .blog {
-    margin: 40px -32px;
-  }
+.blog {
+  margin: 40px 0;
+  padding: 0 !important;
 }
 
 /* Blog heading - styled like Feature heading */
