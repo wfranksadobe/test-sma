@@ -1,20 +1,173 @@
 footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+  background-color: #2D5249;
+  color: white;
+  font-size: var(--body-font-size-s);
 }
 
-footer .footer > div {
+/* Main container - the innermost .footer div that contains the rows */
+footer .footer .footer {
   margin: auto;
   max-width: 1200px;
   padding: 40px 24px 24px;
+  visibility: visible !important;
 }
 
-footer .footer p {
-  margin: 0;
+/* Hide the first column (labels) - they're for semantic structure only */
+footer .footer .footer > div > div:first-child {
+  display: none;
+}
+
+/* Social media links section - first row */
+footer .footer .footer > div:first-child {
+  text-align: center;
+  padding-bottom: 24px;
+}
+
+footer .footer .footer > div:first-child > div:last-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+footer .footer .footer > div:first-child a {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+footer .footer .footer > div:first-child a:not(:last-child)::after {
+  content: '|';
+  margin: 0 16px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Horizontal divider after social media */
+footer .footer .footer > div:first-child::after {
+  content: '';
+  display: block;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-top: 24px;
+}
+
+/* Bottom section wrapper - contains logo, primary, and secondary rows */
+footer .footer .footer > div:nth-child(n+2) {
+  padding-top: 24px;
+}
+
+/* Create grid layout for logo and links sections */
+@media (width >= 768px) {
+  footer .footer .footer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  /* Social row spans full width */
+  footer .footer .footer > div:first-child {
+    grid-column: 1 / -1;
+  }
+
+  /* Logo row */
+  footer .footer .footer > div:nth-child(2) {
+    grid-column: 1 / 2;
+    grid-row: 2 / 4;
+    padding-top: 24px;
+    padding-right: 40px;
+  }
+
+  /* Primary and Secondary rows stack on the right */
+  footer .footer .footer > div:nth-child(3),
+  footer .footer .footer > div:nth-child(4) {
+    grid-column: 2 / -1;
+    padding-top: 0;
+  }
+
+  footer .footer .footer > div:nth-child(3) {
+    grid-row: 2 / 3;
+    padding-top: 24px;
+    padding-bottom: 8px;
+  }
+
+  footer .footer .footer > div:nth-child(4) {
+    grid-row: 3 / 4;
+    padding-top: 8px;
+  }
+
+  footer .footer .footer {
+    grid-template-columns: auto 1fr;
+  }
+}
+
+/* NZ Government logo */
+footer .footer .footer > div:nth-child(2) > div:last-child {
+  display: flex;
+  justify-content: center;
+}
+
+@media (width >= 768px) {
+  footer .footer .footer > div:nth-child(2) > div:last-child {
+    justify-content: flex-start;
+  }
+}
+
+footer .footer .footer > div:nth-child(2) picture {
+  display: block;
+}
+
+footer .footer .footer > div:nth-child(2) img {
+  max-width: 200px;
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+
+/* Primary and Secondary link rows - horizontal with pipe separators */
+footer .footer .footer > div:nth-child(3) > div:last-child,
+footer .footer .footer > div:nth-child(4) > div:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+}
+
+@media (width >= 768px) {
+  footer .footer .footer > div:nth-child(3) > div:last-child,
+  footer .footer .footer > div:nth-child(4) > div:last-child {
+    justify-content: flex-start;
+  }
+}
+
+footer .footer .footer > div:nth-child(3) a,
+footer .footer .footer > div:nth-child(4) a {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+footer .footer .footer > div:nth-child(3) a:not(:last-child)::after,
+footer .footer .footer > div:nth-child(4) a:not(:last-child)::after {
+  content: '|';
+  margin: 0 12px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Link styling */
+footer a {
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+footer a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
 }
 
 @media (width >= 900px) {
-  footer .footer > div {
+  footer .footer .footer {
     padding: 40px 32px 24px;
   }
 }
