@@ -55,45 +55,9 @@ footer .footer .footer > div:first-child::after {
   margin-top: 24px;
 }
 
-/* Bottom section wrapper - contains logo, primary, and secondary rows */
-footer .footer .footer > div:nth-child(n+2) {
+/* Bottom section - Logo on left, links stacked on right */
+footer .footer .footer > div:nth-child(2) {
   padding-top: 24px;
-}
-
-/* Create grid layout for logo and links sections */
-@media (width >= 768px) {
-  footer .footer .footer {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  /* Social row spans full width */
-  footer .footer .footer > div:first-child {
-    grid-column: 1 / -1;
-  }
-
-  /* Logo row */
-  footer .footer .footer > div:nth-child(2) {
-    grid-column: 1 / 2;
-    grid-row: 2 / 3;
-    padding-top: 24px;
-    padding-right: 40px;
-  }
-
-  /* Primary and Secondary rows on same line on the right */
-  footer .footer .footer > div:nth-child(3),
-  footer .footer .footer > div:nth-child(4) {
-    grid-column: 2 / -1;
-    grid-row: 2 / 3;
-    padding-top: 24px;
-    display: inline-block;
-    vertical-align: top;
-  }
-
-  footer .footer .footer {
-    grid-template-columns: auto 1fr;
-  }
 }
 
 /* NZ Government logo */
@@ -102,69 +66,93 @@ footer .footer .footer > div:nth-child(2) > div:last-child {
   justify-content: center;
 }
 
-@media (width >= 768px) {
-  footer .footer .footer > div:nth-child(2) > div:last-child {
-    justify-content: flex-start;
-  }
-}
-
 footer .footer .footer > div:nth-child(2) picture {
   display: block;
 }
 
 footer .footer .footer > div:nth-child(2) img {
-  max-width: 280px;
+  max-width: 200px;
   height: auto;
   filter: brightness(0) invert(1);
 }
 
-/* Primary and Secondary link rows - horizontal layout on same line */
+/* Primary and Secondary link rows */
+footer .footer .footer > div:nth-child(3),
+footer .footer .footer > div:nth-child(4) {
+  padding-top: 16px;
+}
+
 footer .footer .footer > div:nth-child(3) > div:last-child,
 footer .footer .footer > div:nth-child(4) > div:last-child {
-  display: inline-flex;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 0;
+  gap: 8px 24px;
   font-size: 13px;
-}
-
-/* Add pipe separator after Primary links section */
-footer .footer .footer > div:nth-child(3)::after {
-  content: '|';
-  display: inline;
-  font-size: 13px;
-  color: white;
-  margin: 0 12px;
-  vertical-align: baseline;
-}
-
-@media (width >= 768px) {
-  footer .footer .footer > div:nth-child(3) > div:last-child,
-  footer .footer .footer > div:nth-child(4) > div:last-child {
-    justify-content: flex-start;
-  }
 }
 
 footer .footer .footer > div:nth-child(3) a,
 footer .footer .footer > div:nth-child(4) a {
   display: inline;
   white-space: nowrap;
-  margin: 0 12px;
   font-size: 13px;
 }
 
-footer .footer .footer > div:nth-child(3) a:first-child,
-footer .footer .footer > div:nth-child(4) a:first-child {
-  margin-left: 0;
-}
+/* Desktop layout - grid with logo left, links right */
+@media (width >= 768px) {
+  footer .footer .footer {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 0;
+  }
 
-footer .footer .footer > div:nth-child(3) a:last-child {
-  margin-right: 0;
-}
+  /* Social row spans full width */
+  footer .footer .footer > div:first-child {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
 
-footer .footer .footer > div:nth-child(4) a:last-child {
-  margin-right: 0;
+  /* Logo - left side, spans both link rows */
+  footer .footer .footer > div:nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
+    padding-top: 24px;
+    padding-right: 40px;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  footer .footer .footer > div:nth-child(2) > div:last-child {
+    justify-content: flex-start;
+  }
+
+  /* Links container - right side */
+  footer .footer .footer > div:nth-child(3),
+  footer .footer .footer > div:nth-child(4) {
+    grid-column: 2;
+    padding-top: 0;
+  }
+
+  /* Primary links - row 2 */
+  footer .footer .footer > div:nth-child(3) {
+    grid-row: 2;
+    padding-top: 24px;
+  }
+
+  /* Secondary links - row 2 but below primary using flexbox wrapper */
+  footer .footer .footer > div:nth-child(4) {
+    grid-row: 2;
+    align-self: end;
+    padding-bottom: 4px;
+  }
+
+  footer .footer .footer > div:nth-child(3) > div:last-child,
+  footer .footer .footer > div:nth-child(4) > div:last-child {
+    justify-content: flex-end;
+    gap: 8px 24px;
+  }
 }
 
 /* Link styling */
