@@ -52,12 +52,12 @@ footer .footer .footer > div:first-child::after {
   display: block;
   height: 1px;
   background-color: rgba(255, 255, 255, 0.2);
-  margin-top: 12px;
+  margin-top: 20px;
 }
 
 /* Bottom section - Logo on left, links on right */
 footer .footer .footer > div:nth-child(2) {
-  padding-top: 12px;
+  padding-top: 8px;
 }
 
 /* NZ Government logo */
@@ -133,7 +133,7 @@ footer .footer .footer > div:nth-child(4) {
   /* Logo - left side */
   footer .footer .footer > div:nth-child(2) {
     flex: 0 0 auto;
-    padding-top: 12px;
+    padding-top: 8px;
   }
 
   footer .footer .footer > div:nth-child(2) > div:last-child {
@@ -143,11 +143,11 @@ footer .footer .footer > div:nth-child(4) {
   /* Links on same line */
   footer .footer .footer > div:nth-child(3) {
     margin-left: 24px;
-    padding-top: 12px;
+    padding-top: 8px;
   }
 
   footer .footer .footer > div:nth-child(4) {
-    padding-top: 12px;
+    padding-top: 8px;
   }
 }
 
