@@ -71,35 +71,54 @@ footer .footer .footer > div:nth-child(2) picture {
 }
 
 footer .footer .footer > div:nth-child(2) img {
-  max-width: 200px;
+  width: 250px;
   height: auto;
   filter: brightness(0) invert(1);
 }
 
-/* Bottom section container - wraps Logo, Primary, Secondary */
-footer .footer .footer > div:nth-child(2),
-footer .footer .footer > div:nth-child(3),
-footer .footer .footer > div:nth-child(4) {
-  padding-top: 16px;
+/* Primary links row */
+footer .footer .footer > div:nth-child(3) {
+  padding-top: 8px;
   text-align: center;
 }
 
-/* Primary and Secondary links - display inline */
-footer .footer .footer > div:nth-child(3) > div:last-child,
-footer .footer .footer > div:nth-child(4) > div:last-child {
-  display: inline;
-  font-size: 13px;
+footer .footer .footer > div:nth-child(3) > div:last-child {
+  display: block;
 }
 
-footer .footer .footer > div:nth-child(3) a,
-footer .footer .footer > div:nth-child(4) a {
+footer .footer .footer > div:nth-child(3) a {
   display: inline;
   white-space: nowrap;
-  font-size: 13px;
-  margin: 0 10px;
+  font-size: 14px;
+  margin: 0 12px;
 }
 
 footer .footer .footer > div:nth-child(3) a:first-child {
+  margin-left: 0;
+}
+
+footer .footer .footer > div:nth-child(3) a:last-child {
+  margin-right: 0;
+}
+
+/* Secondary links row */
+footer .footer .footer > div:nth-child(4) {
+  padding-top: 8px;
+  text-align: center;
+}
+
+footer .footer .footer > div:nth-child(4) > div:last-child {
+  display: block;
+}
+
+footer .footer .footer > div:nth-child(4) a {
+  display: inline;
+  white-space: nowrap;
+  font-size: 14px;
+  margin: 0 12px;
+}
+
+footer .footer .footer > div:nth-child(4) a:first-child {
   margin-left: 0;
 }
 
@@ -107,54 +126,49 @@ footer .footer .footer > div:nth-child(4) a:last-child {
   margin-right: 0;
 }
 
-/* Pipe separator between Primary and Secondary */
-footer .footer .footer > div:nth-child(3)::after {
-  content: '|';
-  display: inline;
-  font-size: 13px;
-  color: white;
-  margin: 0 10px;
-}
-
-/* Primary and Secondary on same line */
-footer .footer .footer > div:nth-child(3),
-footer .footer .footer > div:nth-child(4) {
-  display: inline;
-}
-
-/* Desktop layout - flexbox for bottom section */
+/* Desktop layout - Logo left, links right */
 @media (width >= 768px) {
-  /* Use flexbox to wrap the bottom row */
+  /* Use CSS Grid for precise control */
   footer .footer .footer {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 0;
   }
 
   /* Social row spans full width */
   footer .footer .footer > div:first-child {
-    flex: 0 0 100%;
+    grid-column: 1 / -1;
+    grid-row: 1;
   }
 
   /* Logo - left side */
   footer .footer .footer > div:nth-child(2) {
-    flex: 0 0 auto;
+    grid-column: 1;
+    grid-row: 2 / 4;
     padding-top: 24px;
     padding-right: 40px;
+    align-self: start;
   }
 
   footer .footer .footer > div:nth-child(2) > div:last-child {
     justify-content: flex-start;
   }
 
-  /* Links wrapper area - grows to fill remaining space */
-  footer .footer .footer > div:nth-child(3),
-  footer .footer .footer > div:nth-child(4) {
-    padding-top: 24px;
+  /* Primary links - right side, first row */
+  footer .footer .footer > div:nth-child(3) {
+    grid-column: 2;
+    grid-row: 2;
+    text-align: right;
+    padding-top: 28px;
   }
 
-  /* Push links to the right using auto margin on first link section */
-  footer .footer .footer > div:nth-child(3) {
-    margin-left: auto;
+  /* Secondary links - right side, second row */
+  footer .footer .footer > div:nth-child(4) {
+    grid-column: 2;
+    grid-row: 3;
+    text-align: right;
+    padding-top: 4px;
   }
 }
 
