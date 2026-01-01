@@ -81,7 +81,7 @@ footer .footer .footer > div:nth-child(3) > div:last-child,
 footer .footer .footer > div:nth-child(4) > div:last-child,
 footer .footer .footer > div:nth-child(5) > div:last-child {
   display: inline;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 footer .footer .footer > div:nth-child(3) a,
@@ -89,7 +89,7 @@ footer .footer .footer > div:nth-child(4) a,
 footer .footer .footer > div:nth-child(5) a {
   display: inline;
   white-space: nowrap;
-  font-size: 11px;
+  font-size: 12px;
   margin: 0 6px;
 }
 
@@ -106,7 +106,7 @@ footer .footer .footer > div:nth-child(5) a:last-child {
 footer .footer .footer:not(:has(> div:nth-child(5))) > div:nth-child(3)::after {
   content: '|';
   display: inline;
-  font-size: 11px;
+  font-size: 12px;
   color: white;
   margin: 0 6px;
 }
