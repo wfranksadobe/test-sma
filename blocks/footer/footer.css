@@ -102,6 +102,15 @@ footer .footer .footer > div:nth-child(5) a:last-child {
   margin-right: 0;
 }
 
+/* Pipe separator - fallback via CSS when Separator div not present */
+footer .footer .footer:not(:has(> div:nth-child(5))) > div:nth-child(3)::after {
+  content: '|';
+  display: inline;
+  font-size: 11px;
+  color: white;
+  margin: 0 6px;
+}
+
 /* Primary, Separator, and Secondary on same line */
 footer .footer .footer > div:nth-child(3),
 footer .footer .footer > div:nth-child(4),
