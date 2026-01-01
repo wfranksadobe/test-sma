@@ -145,12 +145,33 @@ footer .footer .footer > div:nth-child(5) {
     justify-content: flex-start;
   }
 
-  /* Links on same line */
-  footer .footer .footer > div:nth-child(3),
-  footer .footer .footer > div:nth-child(4),
-  footer .footer .footer > div:nth-child(5) {
+  /* Links distributed across remaining space */
+  footer .footer .footer > div:nth-child(3) {
     margin-left: 0;
     padding-top: 8px;
+  }
+
+  footer .footer .footer > div:nth-child(4) {
+    padding-top: 8px;
+  }
+
+  footer .footer .footer > div:nth-child(5) {
+    padding-top: 8px;
+  }
+
+  /* Secondary links align to right edge */
+  footer .footer .footer > div:nth-child(4):last-child {
+    margin-left: auto;
+  }
+
+  footer .footer .footer > div:nth-child(5):last-child {
+    margin-left: auto;
+  }
+
+  /* When separator exists, distribute space evenly */
+  footer .footer .footer:has(> div:nth-child(5)) > div:nth-child(4) {
+    flex: 1;
+    text-align: center;
   }
 }
 
