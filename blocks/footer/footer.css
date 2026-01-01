@@ -133,7 +133,7 @@ footer .footer .footer > div:nth-child(4) {
   /* Logo - left side */
   footer .footer .footer > div:nth-child(2) {
     flex: 0 0 auto;
-    padding-top: 24px;
+    padding-top: 12px;
   }
 
   footer .footer .footer > div:nth-child(2) > div:last-child {
@@ -143,11 +143,11 @@ footer .footer .footer > div:nth-child(4) {
   /* Links on same line */
   footer .footer .footer > div:nth-child(3) {
     margin-left: 24px;
-    padding-top: 24px;
+    padding-top: 12px;
   }
 
   footer .footer .footer > div:nth-child(4) {
-    padding-top: 24px;
+    padding-top: 12px;
   }
 }
 
