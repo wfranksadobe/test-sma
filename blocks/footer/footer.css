@@ -63,11 +63,7 @@ footer .footer .footer > div:first-child::after {
   display: block;
 }
 
-.footer-logo img {
-  width: auto;
-  height: 50px;
-  filter: brightness(0) invert(1);
-}
+/* Logo image styling moved to .footer-logo section */
 
 /* Bottom row container - Logo, Primary, Secondary */
 .footer-bottom {
@@ -76,26 +72,31 @@ footer .footer .footer > div:first-child::after {
   padding-top: 16px;
 }
 
-/* Logo section - 20% width */
+/* Logo section - fixed width for the logo */
 .footer-logo {
-  flex: 0 0 20%;
-  max-width: 20%;
+  flex: 0 0 auto;
+  margin-right: 24px;
 }
 
 .footer-logo > div:last-child {
   display: flex;
 }
 
-/* Primary links - 40% width */
+.footer-logo img {
+  width: 180px;
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+
+/* Primary links - flex grow to fill space */
 .footer-primary {
-  flex: 0 0 40%;
-  max-width: 40%;
+  flex: 1 1 auto;
+  padding-right: 24px;
 }
 
 .footer-primary > div:last-child {
   display: flex;
-  justify-content: center;
-  gap: 16px;
+  justify-content: space-between;
   font-size: 12px;
 }
 
@@ -103,16 +104,15 @@ footer .footer .footer > div:first-child::after {
   white-space: nowrap;
 }
 
-/* Secondary links - 40% width */
+/* Secondary links - flex grow to fill space */
 .footer-secondary {
-  flex: 0 0 40%;
-  max-width: 40%;
+  flex: 1 1 auto;
+  padding-left: 24px;
 }
 
 .footer-secondary > div:last-child {
   display: flex;
-  justify-content: flex-end;
-  gap: 16px;
+  justify-content: space-between;
   font-size: 12px;
 }
 
