@@ -20,7 +20,7 @@ footer .footer .footer > div > div:first-child {
 /* Social media links section - first row */
 footer .footer .footer > div:first-child {
   text-align: center;
-  padding-bottom: 0;
+  padding-bottom: 5px;
 }
 
 footer .footer .footer > div:first-child > div:last-child {
@@ -134,6 +134,7 @@ footer .footer .footer > div:nth-child(4) {
   footer .footer .footer > div:nth-child(2) {
     flex: 0 0 auto;
     padding-top: 8px;
+    margin-right: 24px;
   }
 
   footer .footer .footer > div:nth-child(2) > div:last-child {
@@ -142,7 +143,7 @@ footer .footer .footer > div:nth-child(4) {
 
   /* Links on same line */
   footer .footer .footer > div:nth-child(3) {
-    margin-left: 24px;
+    margin-left: 0;
     padding-top: 8px;
   }
 
