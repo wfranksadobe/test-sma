@@ -20,7 +20,7 @@ footer .footer .footer > div > div:first-child {
 /* Social media links section - first row */
 footer .footer .footer > div:first-child {
   text-align: center;
-  padding-bottom: 24px;
+  padding-bottom: 0;
 }
 
 footer .footer .footer > div:first-child > div:last-child {
