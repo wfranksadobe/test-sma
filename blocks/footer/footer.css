@@ -80,15 +80,15 @@ footer .footer .footer > div:nth-child(2) img {
 footer .footer .footer > div:nth-child(3) > div:last-child,
 footer .footer .footer > div:nth-child(4) > div:last-child {
   display: inline;
-  font-size: 13px;
+  font-size: 11px;
 }
 
 footer .footer .footer > div:nth-child(3) a,
 footer .footer .footer > div:nth-child(4) a {
   display: inline;
   white-space: nowrap;
-  font-size: 13px;
-  margin: 0 10px;
+  font-size: 11px;
+  margin: 0 6px;
 }
 
 footer .footer .footer > div:nth-child(3) a:first-child {
@@ -103,9 +103,9 @@ footer .footer .footer > div:nth-child(4) a:last-child {
 footer .footer .footer > div:nth-child(3)::after {
   content: '|';
   display: inline;
-  font-size: 13px;
+  font-size: 11px;
   color: white;
-  margin: 0 10px;
+  margin: 0 6px;
 }
 
 /* Primary and Secondary on same line */
@@ -140,9 +140,9 @@ footer .footer .footer > div:nth-child(4) {
     justify-content: flex-start;
   }
 
-  /* Links on same line - push to right */
+  /* Links on same line */
   footer .footer .footer > div:nth-child(3) {
-    margin-left: auto;
+    margin-left: 24px;
     padding-top: 24px;
   }
 
