@@ -78,13 +78,15 @@ footer .footer .footer > div:nth-child(2) img {
 
 /* Primary and Secondary links - display inline */
 footer .footer .footer > div:nth-child(3) > div:last-child,
-footer .footer .footer > div:nth-child(4) > div:last-child {
+footer .footer .footer > div:nth-child(4) > div:last-child,
+footer .footer .footer > div:nth-child(5) > div:last-child {
   display: inline;
   font-size: 11px;
 }
 
 footer .footer .footer > div:nth-child(3) a,
-footer .footer .footer > div:nth-child(4) a {
+footer .footer .footer > div:nth-child(4) a,
+footer .footer .footer > div:nth-child(5) a {
   display: inline;
   white-space: nowrap;
   font-size: 11px;
@@ -95,22 +97,15 @@ footer .footer .footer > div:nth-child(3) a:first-child {
   margin-left: 0;
 }
 
-footer .footer .footer > div:nth-child(4) a:last-child {
+footer .footer .footer > div:nth-child(4) a:last-child,
+footer .footer .footer > div:nth-child(5) a:last-child {
   margin-right: 0;
 }
 
-/* Pipe separator between Primary and Secondary */
-footer .footer .footer > div:nth-child(3)::after {
-  content: '|';
-  display: inline;
-  font-size: 11px;
-  color: white;
-  margin: 0 6px;
-}
-
-/* Primary and Secondary on same line */
+/* Primary, Separator, and Secondary on same line */
 footer .footer .footer > div:nth-child(3),
-footer .footer .footer > div:nth-child(4) {
+footer .footer .footer > div:nth-child(4),
+footer .footer .footer > div:nth-child(5) {
   display: inline;
   padding-top: 16px;
   text-align: center;
@@ -142,12 +137,10 @@ footer .footer .footer > div:nth-child(4) {
   }
 
   /* Links on same line */
-  footer .footer .footer > div:nth-child(3) {
+  footer .footer .footer > div:nth-child(3),
+  footer .footer .footer > div:nth-child(4),
+  footer .footer .footer > div:nth-child(5) {
     margin-left: 0;
-    padding-top: 8px;
-  }
-
-  footer .footer .footer > div:nth-child(4) {
     padding-top: 8px;
   }
 }
