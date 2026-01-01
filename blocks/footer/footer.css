@@ -78,15 +78,13 @@ footer .footer .footer > div:nth-child(2) img {
 
 /* Primary and Secondary links - display inline */
 footer .footer .footer > div:nth-child(3) > div:last-child,
-footer .footer .footer > div:nth-child(4) > div:last-child,
-footer .footer .footer > div:nth-child(5) > div:last-child {
+footer .footer .footer > div:nth-child(4) > div:last-child {
   display: inline;
   font-size: 12px;
 }
 
 footer .footer .footer > div:nth-child(3) a,
-footer .footer .footer > div:nth-child(4) a,
-footer .footer .footer > div:nth-child(5) a {
+footer .footer .footer > div:nth-child(4) a {
   display: inline;
   white-space: nowrap;
   font-size: 12px;
@@ -97,24 +95,21 @@ footer .footer .footer > div:nth-child(3) a:first-child {
   margin-left: 0;
 }
 
-footer .footer .footer > div:nth-child(4) a:last-child,
-footer .footer .footer > div:nth-child(5) a:last-child {
+footer .footer .footer > div:nth-child(4) a:last-child {
   margin-right: 0;
 }
 
-/* Pipe separator - fallback via CSS when Separator div not present */
-footer .footer .footer:not(:has(> div:nth-child(5))) > div:nth-child(3)::after {
+/* Pipe separator via CSS ::after on Primary */
+footer .footer .footer > div:nth-child(3)::after {
   content: '|';
   font-size: 12px;
   color: white;
-  position: absolute;
-  right: 0;
+  margin: 0 6px;
 }
 
-/* Primary, Separator, and Secondary on same line */
+/* Primary and Secondary on same line */
 footer .footer .footer > div:nth-child(3),
-footer .footer .footer > div:nth-child(4),
-footer .footer .footer > div:nth-child(5) {
+footer .footer .footer > div:nth-child(4) {
   display: inline;
   padding-top: 16px;
   text-align: center;
@@ -138,53 +133,47 @@ footer .footer .footer > div:nth-child(5) {
   footer .footer .footer > div:nth-child(2) {
     flex: 0 0 auto;
     padding-top: 8px;
-    margin-right: 30px;
+    margin-right: 24px;
   }
 
   footer .footer .footer > div:nth-child(2) > div:last-child {
     justify-content: flex-start;
   }
 
-  /* Links distributed across remaining space */
+  /* Primary links - only take needed space, pipe stays close */
   footer .footer .footer > div:nth-child(3) {
-    flex: 1;
-    margin-left: 0;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
     padding-top: 8px;
-    text-align: left;
-    position: relative;
   }
 
+  footer .footer .footer > div:nth-child(3) > div:last-child {
+    display: flex;
+    gap: 16px;
+  }
+
+  /* Pipe separator positioned right after Primary links */
+  footer .footer .footer > div:nth-child(3)::after {
+    margin-left: 16px;
+    margin-right: 0;
+  }
+
+  /* Secondary links - take remaining space, right-aligned */
   footer .footer .footer > div:nth-child(4) {
+    flex: 1 1 auto;
     padding-top: 8px;
   }
 
-  footer .footer .footer > div:nth-child(5) {
-    padding-top: 8px;
+  footer .footer .footer > div:nth-child(4) > div:last-child {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
   }
 
-  /* Secondary links align to right edge */
-  footer .footer .footer > div:nth-child(4):last-child {
-    flex: 0 0 auto;
-    text-align: right;
-  }
-
-  footer .footer .footer > div:nth-child(5):last-child {
-    flex: 0 0 auto;
-    text-align: right;
-  }
-
-  /* When separator exists, distribute space evenly */
-  footer .footer .footer:has(> div:nth-child(5)) > div:nth-child(3) {
-    flex: 1;
-  }
-
-  footer .footer .footer:has(> div:nth-child(5)) > div:nth-child(4) {
-    flex: 0 0 auto;
-  }
-
-  footer .footer .footer:has(> div:nth-child(5)) > div:nth-child(5) {
-    flex: 1;
-    text-align: right;
+  footer .footer .footer > div:nth-child(3) a,
+  footer .footer .footer > div:nth-child(4) a {
+    margin: 0;
   }
 }
 
