@@ -71,7 +71,7 @@ footer .footer .footer > div:nth-child(2) picture {
 }
 
 footer .footer .footer > div:nth-child(2) img {
-  width: 160px;
+  width: 200px;
   height: auto;
   filter: brightness(0) invert(1);
 }
@@ -134,7 +134,6 @@ footer .footer .footer > div:nth-child(4) {
   footer .footer .footer > div:nth-child(2) {
     flex: 0 0 auto;
     padding-top: 24px;
-    padding-right: 16px;
   }
 
   footer .footer .footer > div:nth-child(2) > div:last-child {
