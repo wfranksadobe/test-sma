@@ -27,10 +27,42 @@ export default async function decorate(block) {
   const footer = document.createElement('div');
   while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
 
+  // Restructure: wrap Logo, Primary, Secondary in a bottom-row container
+  const footerInner = footer.querySelector('.footer');
+  if (footerInner) {
+    const rows = Array.from(footerInner.children);
+    // rows[0] = Social, rows[1] = Logo, rows[2] = Primary, rows[3] = Secondary
+
+    if (rows.length >= 4) {
+      const socialRow = rows[0];
+      const logoRow = rows[1];
+      const primaryRow = rows[2];
+      const secondaryRow = rows[3];
+
+      // Add classes for styling
+      socialRow.classList.add('footer-social');
+      logoRow.classList.add('footer-logo');
+      primaryRow.classList.add('footer-primary');
+      secondaryRow.classList.add('footer-secondary');
+
+      // Create bottom row container
+      const bottomRow = document.createElement('div');
+      bottomRow.classList.add('footer-bottom');
+
+      // Move logo, primary, secondary into bottom row
+      bottomRow.appendChild(logoRow);
+      bottomRow.appendChild(primaryRow);
+      bottomRow.appendChild(secondaryRow);
+
+      // Append bottom row after social
+      footerInner.appendChild(bottomRow);
+    }
+  }
+
   block.append(footer);
 
   // Fix logo image - remove hardcoded width/height so CSS can control sizing
-  const logoImg = block.querySelector('div:nth-child(2) img');
+  const logoImg = block.querySelector('.footer-logo img');
   if (logoImg) {
     logoImg.removeAttribute('width');
     logoImg.removeAttribute('height');
