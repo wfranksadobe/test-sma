@@ -28,4 +28,11 @@ export default async function decorate(block) {
   while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
 
   block.append(footer);
+
+  // Fix logo image - remove hardcoded width/height so CSS can control sizing
+  const logoImg = block.querySelector('div:nth-child(2) img');
+  if (logoImg) {
+    logoImg.removeAttribute('width');
+    logoImg.removeAttribute('height');
+  }
 }
