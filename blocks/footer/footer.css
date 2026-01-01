@@ -72,10 +72,10 @@ footer .footer .footer > div:first-child::after {
   padding-top: 16px;
 }
 
-/* Logo section - fixed width for the logo */
+/* Logo section - 20% width */
 .footer-logo {
-  flex: 0 0 auto;
-  margin-right: 24px;
+  flex: 0 0 20%;
+  max-width: 20%;
 }
 
 .footer-logo > div:last-child {
@@ -83,15 +83,15 @@ footer .footer .footer > div:first-child::after {
 }
 
 .footer-logo img {
-  width: 180px;
+  width: 100%;
   height: auto;
   filter: brightness(0) invert(1);
 }
 
-/* Primary links - flex grow to fill space */
+/* Primary links - 40% width */
 .footer-primary {
-  flex: 1 1 auto;
-  padding-right: 24px;
+  flex: 0 0 40%;
+  max-width: 40%;
 }
 
 .footer-primary > div:last-child {
@@ -104,10 +104,10 @@ footer .footer .footer > div:first-child::after {
   white-space: nowrap;
 }
 
-/* Secondary links - flex grow to fill space */
+/* Secondary links - 40% width */
 .footer-secondary {
-  flex: 1 1 auto;
-  padding-left: 24px;
+  flex: 0 0 40%;
+  max-width: 40%;
 }
 
 .footer-secondary > div:last-child {
