@@ -51,7 +51,21 @@ async function loadFonts() {
  * @param {Element} main The container element
  */
 function buildBreadcrumbs(main) {
-  const breadcrumbsEnabled = getMetadata('breadcrumbs');
+  // Check metadata div first (before it's processed into meta tags)
+  let breadcrumbsEnabled = getMetadata('breadcrumbs');
+  if (!breadcrumbsEnabled) {
+    const metadataBlock = main.querySelector('.metadata');
+    if (metadataBlock) {
+      const rows = [...metadataBlock.querySelectorAll(':scope > div')];
+      const breadcrumbRow = rows.find((row) => {
+        const key = row.querySelector('div:first-child')?.textContent?.trim().toLowerCase();
+        return key === 'breadcrumbs';
+      });
+      if (breadcrumbRow) {
+        breadcrumbsEnabled = breadcrumbRow.querySelector('div:last-child')?.textContent?.trim();
+      }
+    }
+  }
   if (breadcrumbsEnabled !== 'true') return;
 
   // Get the hero section to add breadcrumbs to
