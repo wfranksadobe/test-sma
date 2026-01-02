@@ -95,32 +95,10 @@ footer .footer .footer > div:first-child::after {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-/* Primary links */
-.footer-primary > div:last-child {
-  display: flex;
-  gap: 16px;
   font-size: 12px;
 }
 
-.footer-primary a {
-  white-space: nowrap;
-}
-
-/* Separator pipe */
-.footer-separator {
-  text-align: center;
-}
-
-/* Secondary links */
-.footer-secondary > div:last-child {
-  display: flex;
-  gap: 16px;
-  font-size: 12px;
-}
-
-.footer-secondary a {
+.footer-links a {
   white-space: nowrap;
 }
 

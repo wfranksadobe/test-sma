@@ -49,19 +49,33 @@ export default async function decorate(block) {
       const bottomRow = document.createElement('div');
       bottomRow.classList.add('footer-bottom');
 
-      // Create links container for primary, separator, secondary
+      // Create links container for all links
       const linksContainer = document.createElement('div');
       linksContainer.classList.add('footer-links');
 
-      // Create separator div with pipe
-      const separator = document.createElement('div');
+      // Get the actual link containers (last child of each row)
+      const primaryLinks = primaryRow.querySelector('div:last-child');
+      const secondaryLinks = secondaryRow.querySelector('div:last-child');
+
+      // Move all primary links to footer-links
+      if (primaryLinks) {
+        while (primaryLinks.firstChild) {
+          linksContainer.appendChild(primaryLinks.firstChild);
+        }
+      }
+
+      // Add separator pipe
+      const separator = document.createElement('span');
       separator.classList.add('footer-separator');
       separator.textContent = '|';
-
-      // Add primary, separator, secondary to links container
-      linksContainer.appendChild(primaryRow);
       linksContainer.appendChild(separator);
-      linksContainer.appendChild(secondaryRow);
+
+      // Move all secondary links to footer-links
+      if (secondaryLinks) {
+        while (secondaryLinks.firstChild) {
+          linksContainer.appendChild(secondaryLinks.firstChild);
+        }
+      }
 
       // Move logo and links container into bottom row
       bottomRow.appendChild(logoRow);
