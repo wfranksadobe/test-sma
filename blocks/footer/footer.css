@@ -108,6 +108,7 @@ footer .footer .footer > div:first-child::after {
 .footer-separator {
   flex: 0 0 5%;
   max-width: 5%;
+  text-align: center;
 }
 
 /* Secondary links - 35% width */
