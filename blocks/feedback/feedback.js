@@ -5,9 +5,6 @@ export default function decorate(block) {
   // Clear the block
   block.textContent = '';
 
-  // Add wrapper class to block for full-width styling
-  block.classList.add('feedback-wrapper');
-
   // Create the feedback container
   const container = document.createElement('div');
   container.classList.add('feedback-container');

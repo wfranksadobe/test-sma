@@ -1,12 +1,9 @@
-.feedback-wrapper {
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-}
-
 .feedback {
   background-color: #f5f5f5;
   padding: 24px;
   margin: 40px 0;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
 }
 
 .feedback-container {
