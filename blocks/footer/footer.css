@@ -104,6 +104,12 @@ footer .footer .footer > div:first-child::after {
   white-space: nowrap;
 }
 
+/* Separator - 5% width */
+.footer-separator {
+  flex: 0 0 5%;
+  max-width: 5%;
+}
+
 /* Secondary links - 35% width */
 .footer-secondary {
   flex: 0 0 35%;

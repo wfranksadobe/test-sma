@@ -49,9 +49,14 @@ export default async function decorate(block) {
       const bottomRow = document.createElement('div');
       bottomRow.classList.add('footer-bottom');
 
-      // Move logo, primary, secondary into bottom row
+      // Create separator div
+      const separator = document.createElement('div');
+      separator.classList.add('footer-separator');
+
+      // Move logo, primary, separator, secondary into bottom row
       bottomRow.appendChild(logoRow);
       bottomRow.appendChild(primaryRow);
+      bottomRow.appendChild(separator);
       bottomRow.appendChild(secondaryRow);
 
       // Append bottom row after social
