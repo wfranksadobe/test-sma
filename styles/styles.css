@@ -389,12 +389,10 @@ main .section.two-column-layout .cards-footer {
 .breadcrumbs {
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 24px;
   z-index: 1;
-  width: 100%;
-  max-width: 1066px;
-  padding: 0 24px;
+  width: auto;
+  padding: 4px 12px;
   box-sizing: border-box;
   background-color: white;
 }
@@ -445,6 +443,6 @@ main .section.two-column-layout .cards-footer {
 
 @media (width >= 900px) {
   .breadcrumbs {
-    padding: 0 32px;
+    left: 32px;
   }
 }
