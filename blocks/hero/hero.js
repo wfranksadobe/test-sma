@@ -17,10 +17,21 @@ export default function decorate(block) {
       rows[1].remove();
     }
 
-    // Add links
-    if (rows[2]) {
+    // Check if there are links (third row with actual link content)
+    const hasLinks = rows[2] && rows[2].querySelector('a');
+
+    // Add links if they exist
+    if (hasLinks) {
       contentWrapper.appendChild(rows[2].cloneNode(true));
       rows[2].remove();
+    } else if (rows[2]) {
+      // Remove empty links row
+      rows[2].remove();
+    }
+
+    // Add class when no links present for styling
+    if (!hasLinks) {
+      block.classList.add('hero-no-links');
     }
 
     block.appendChild(contentWrapper);

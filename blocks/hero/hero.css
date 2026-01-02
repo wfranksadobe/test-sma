@@ -115,3 +115,13 @@
     padding: 40px 32px;
   }
 }
+
+/* Hero without links - title box touches bottom of image */
+.hero.hero-no-links .hero-content {
+  padding-bottom: 0;
+}
+
+.hero.hero-no-links h1,
+.hero.hero-no-links .hero-content > div:first-child p {
+  margin-bottom: 0;
+}
