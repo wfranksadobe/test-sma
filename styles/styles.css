@@ -391,7 +391,7 @@ main .section.two-column-layout .cards-footer {
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 10;
+  z-index: 1;
   width: 100%;
   max-width: 1066px;
   padding: 12px 24px;
