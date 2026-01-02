@@ -107,7 +107,7 @@ main .section.two-column-layout .blog h2 {
 
 /* Abstract styling */
 .blog-abstract {
-  font-size: var(--body-font-size-m, 16px);
+  font-size: var(--body-font-size-s, 14px);
   line-height: 1.6;
   margin: 0;
   padding: 0 16px 0 0;

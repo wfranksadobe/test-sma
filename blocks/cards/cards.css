@@ -37,6 +37,7 @@
 
 .cards .cards-card-body p {
   margin: 0 0 12px 0;
+  font-size: var(--body-font-size-s);
 }
 
 .cards .cards-card-body p:last-child {
