@@ -3,6 +3,7 @@
   margin-left: calc(-50vw + 50%);
   background-color: white;
   text-align: center;
+  padding: 0;
 }
 
 .feedback {
