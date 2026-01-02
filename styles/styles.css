@@ -446,3 +446,10 @@ main .section.two-column-layout .cards-footer {
     left: 32px;
   }
 }
+
+/* On wider screens, align breadcrumbs with the centered hero image */
+@media (width >= 1114px) {
+  .breadcrumbs {
+    left: calc(50% - 533px + 24px);
+  }
+}
