@@ -88,15 +88,19 @@ footer .footer .footer > div:first-child::after {
   filter: brightness(0) invert(1);
 }
 
-/* Primary links - 33% width */
-.footer-primary {
-  flex: 0 0 33%;
-  max-width: 33%;
-}
-
-.footer-primary > div:last-child {
+/* Links container - 70% width */
+.footer-links {
+  flex: 0 0 70%;
+  max-width: 70%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+/* Primary links */
+.footer-primary > div:last-child {
+  display: flex;
+  gap: 16px;
   font-size: 12px;
 }
 
@@ -104,22 +108,15 @@ footer .footer .footer > div:first-child::after {
   white-space: nowrap;
 }
 
-/* Separator - 4% width */
+/* Separator pipe */
 .footer-separator {
-  flex: 0 0 4%;
-  max-width: 4%;
   text-align: center;
 }
 
-/* Secondary links - 33% width */
-.footer-secondary {
-  flex: 0 0 33%;
-  max-width: 33%;
-}
-
+/* Secondary links */
 .footer-secondary > div:last-child {
   display: flex;
-  justify-content: space-between;
+  gap: 16px;
   font-size: 12px;
 }
 
