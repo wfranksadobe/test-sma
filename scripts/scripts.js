@@ -11,6 +11,7 @@ import {
   loadSection,
   loadSections,
   loadCSS,
+  getMetadata,
 } from './aem.js';
 
 /**
@@ -42,6 +43,77 @@ async function loadFonts() {
   } catch (e) {
     // do nothing
   }
+}
+
+/**
+ * Builds breadcrumbs based on URL path and adds them to the hero section.
+ * Only builds if breadcrumbs metadata is set to 'true'.
+ * @param {Element} main The container element
+ */
+function buildBreadcrumbs(main) {
+  const breadcrumbsEnabled = getMetadata('breadcrumbs');
+  if (breadcrumbsEnabled !== 'true') return;
+
+  // Get the hero section to add breadcrumbs to
+  const heroSection = main.querySelector('.hero-container, .section:has(.hero)');
+  if (!heroSection) return;
+
+  // Build breadcrumb trail from URL path
+  let { pathname } = window.location;
+
+  // Remove /content prefix if present (for local dev)
+  pathname = pathname.replace(/^\/content/, '');
+
+  // Remove trailing index.html or .html
+  pathname = pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
+
+  const pathParts = pathname.split('/').filter((part) => part);
+
+  // Create breadcrumb container
+  const breadcrumbNav = document.createElement('nav');
+  breadcrumbNav.className = 'breadcrumbs';
+  breadcrumbNav.setAttribute('aria-label', 'Breadcrumb');
+
+  const breadcrumbList = document.createElement('ol');
+
+  // Always add Home
+  const homeLi = document.createElement('li');
+  const homeLink = document.createElement('a');
+  homeLink.href = '/';
+  homeLink.textContent = 'Home';
+  homeLi.appendChild(homeLink);
+  breadcrumbList.appendChild(homeLi);
+
+  // Add path segments
+  let currentPath = '';
+  pathParts.forEach((part, index) => {
+    currentPath += `/${part}`;
+    const li = document.createElement('li');
+
+    // Format the label (capitalize, replace hyphens with spaces)
+    const label = part
+      .split('-')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+
+    if (index === pathParts.length - 1) {
+      // Last item - current page, no link
+      li.setAttribute('aria-current', 'page');
+      li.textContent = label;
+    } else {
+      const link = document.createElement('a');
+      link.href = currentPath;
+      link.textContent = label;
+      li.appendChild(link);
+    }
+
+    breadcrumbList.appendChild(li);
+  });
+
+  breadcrumbNav.appendChild(breadcrumbList);
+
+  // Insert breadcrumbs at the start of the hero section
+  heroSection.insertBefore(breadcrumbNav, heroSection.firstChild);
 }
 
 /**
@@ -87,6 +159,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  buildBreadcrumbs(main);
 }
 
 /**
