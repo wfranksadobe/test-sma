@@ -1,9 +1,7 @@
 .feedback {
   background-color: #f5f5f5;
-  padding: 24px 0;
+  padding: 24px;
   margin: 40px 0;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
 }
 
 .feedback-container {
@@ -22,15 +20,13 @@
 .feedback-buttons {
   display: flex;
   gap: 12px;
-  padding: 50px 0;
-  background-color: white;
 }
 
 .feedback-btn {
   background-color: #2D5249;
   color: white;
   border: none;
-  padding: 0 48px;
+  padding: 12px 48px;
   font-size: 14px;
   font-weight: 500;
   border-radius: 4px;
