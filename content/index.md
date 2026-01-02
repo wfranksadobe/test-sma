@@ -47,6 +47,12 @@
 
 ---
 
+| Feedback |
+| --- |
+| /api/feedback |
+
+---
+
 | Metadata |  |
 | --- | --- |
 | Title | Department of Conservation |
