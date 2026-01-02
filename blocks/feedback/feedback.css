@@ -1,6 +1,8 @@
 .feedback-wrapper {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
+  background-color: white;
+  text-align: center;
 }
 
 .feedback {
