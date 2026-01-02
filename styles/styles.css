@@ -394,8 +394,9 @@ main .section.two-column-layout .cards-footer {
   z-index: 1;
   width: 100%;
   max-width: 1066px;
-  padding: 12px 24px;
+  padding: 0 24px;
   box-sizing: border-box;
+  background-color: white;
 }
 
 .breadcrumbs ol {
@@ -412,13 +413,13 @@ main .section.two-column-layout .cards-footer {
   display: inline-flex;
   align-items: center;
   font-size: 14px;
-  color: white;
+  color: rgb(56, 66, 70);
 }
 
 .breadcrumbs li::after {
   content: '>';
   margin: 0 8px;
-  color: white;
+  color: rgb(56, 66, 70);
 }
 
 .breadcrumbs li:last-child::after {
@@ -427,26 +428,23 @@ main .section.two-column-layout .cards-footer {
 }
 
 .breadcrumbs li a {
-  background-color: rgba(255, 255, 255, 0.9);
   color: rgb(56, 66, 70);
-  padding: 4px 12px;
+  padding: 4px 0;
   text-decoration: none;
   font-size: 14px;
-  transition: background-color 0.2s;
 }
 
 .breadcrumbs li a:hover {
-  background-color: white;
+  text-decoration: underline;
 }
 
 .breadcrumbs li[aria-current="page"] {
-  background-color: transparent;
-  color: white;
+  color: rgb(56, 66, 70);
   padding: 4px 0;
 }
 
 @media (width >= 900px) {
   .breadcrumbs {
-    padding: 16px 32px;
+    padding: 0 32px;
   }
 }
