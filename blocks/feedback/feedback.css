@@ -15,6 +15,7 @@
   align-items: center;
   gap: 24px;
   flex-wrap: wrap;
+  padding: 24px 0;
 }
 
 .feedback-question {
@@ -53,4 +54,5 @@
   font-size: 16px;
   font-weight: 600;
   color: #2D5249;
+  padding: 24px 0;
 }
