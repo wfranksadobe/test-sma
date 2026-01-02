@@ -1,5 +1,5 @@
 .section.feedback-container {
-  padding: 0;
+  padding: 0 !important;
 }
 
 .feedback-wrapper {
